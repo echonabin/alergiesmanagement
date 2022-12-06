@@ -5,7 +5,12 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "migrate:make": "knex migrate:make --migrations-directory apps/alergies-backend/src/db/migrations -x ts",
+    "migrate:latest": "knex migrate:latest --knexfile apps/alergies-backend/src/db/knexfile.ts",
+    "migrate:rollback": "knex migrate:rollback --knexfile apps/alergies-backend/src/db/knexfile.ts",
+    "migrate:up": "knex migrate:up --knexfile apps/alergies-backend/src/db/knexfile.ts",
+    "migrate:down": "knex migrate:down --knexfile apps/alergies-backend/src/db/knexfile.ts"
   },
   "private": true,
   "dependencies": {
@@ -35,7 +40,7 @@
     "nx": "15.2.4",
     "prettier": "^2.6.2",
     "ts-jest": "28.0.5",
-    "ts-node": "10.9.1",
-    "typescript": "~4.8.2"
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.3"
   }
 }
