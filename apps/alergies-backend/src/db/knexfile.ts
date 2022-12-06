@@ -1,8 +1,9 @@
-import type { Knex } from 'knex';
+import { Knex } from 'knex';
+interface IKnexConfig {
+  [key: string]: Knex.Config;
+}
 
-// Update with your config settings.
-
-const config: { [key: string]: Knex.Config } = {
+const config: IKnexConfig = {
   development: {
     client: 'postgresql',
     connection: {

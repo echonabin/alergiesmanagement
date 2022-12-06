@@ -12,8 +12,7 @@
         "compiler": "tsc",
         "outputPath": "dist/apps/alergies-backend",
         "main": "apps/alergies-backend/src/main.ts",
-        "tsConfig": "apps/alergies-backend/tsconfig.app.json",
-        "assets": ["apps/alergies-backend/src/assets"]
+        "tsConfig": "apps/alergies-backend/tsconfig.app.json"
       },
       "configurations": {
         "production": {
