@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { createUserService, loginUserService } from '../services/user-service';
-import { compare } from '../utils/auth-utils';
 import { AuthValidator } from '../validators/user-validator';
 
 export const createUserController = async (req: Request, res: Response) => {
