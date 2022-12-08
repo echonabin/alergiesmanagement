@@ -35,7 +35,7 @@ export const generateRefreshToken = async (
     .insert({
       user_id: account.user_id,
       token: randomTokenString(),
-      expires: moment(new Date()).add(1, 'h').toISOString(),
+      expires: moment(new Date()).add(7, 'd').toISOString(),
       is_active: true,
     })
     .returning('*');
