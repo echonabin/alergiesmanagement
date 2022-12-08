@@ -17,7 +17,7 @@ interface IExtendedRequest extends Request {
 
 export const authorize = () => {
   const usersModel = db<IUser>('users');
-  const refreshTokenModel = db<IRefreshToken>('refreshtokens');
+  const refreshTokenModel = db<IRefreshToken>('refresh_tokens');
   return [
     // authenticate JWT token and attach user to request object (req.auth)
     jwt({ secret: process.env.NX_JWT_SECRET, algorithms: ['HS256'] }),

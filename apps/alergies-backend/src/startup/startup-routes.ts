@@ -4,6 +4,7 @@ import { API_ENDPOINTS } from '@alergiesmanagement/constants';
 import { errorHandler } from '../middlewares/error-handler';
 // Routes import
 import { userRouter } from '../routes/user-routes';
+import { allergyRouter } from '../routes/allergy-routes';
 
 export default (app: Express) => {
   const { base_url } = API_ENDPOINTS;
@@ -12,6 +13,7 @@ export default (app: Express) => {
 
   // Base URL => "/api"
   app.use(base_url, userRouter);
+  app.use(base_url, allergyRouter);
 
   // Incase of 404 (Not Found)
   app.all('*', async (req, res) => {

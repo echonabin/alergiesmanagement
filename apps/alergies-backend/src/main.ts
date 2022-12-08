@@ -19,6 +19,7 @@ app.get(API_ENDPOINTS.base_url, (req, res) => {
 checkDbConnection()
   .then((res) => {
     if (res.code !== 'ECONNREFUSED') {
+      console.log(res);
       // Startup Routes
       startupRoutes(app);
 

@@ -3,9 +3,11 @@ import { Knex } from 'knex';
 export async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable('allergies', (table) => {
     table.increments('id');
-    table.string('name', 255).notNullable();
+    table.string('name', 255).notNullable().unique().primary();
     table.string('symptoms', 512).notNullable();
     table.string('severity', 255).notNullable();
+    table.text('treatments');
+    table.text('notes');
     table.string('allergy_image', 512);
     table.boolean('is_active').defaultTo(true);
     table.integer('created_by').notNullable();

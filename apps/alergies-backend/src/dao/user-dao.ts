@@ -12,11 +12,11 @@ import {
 export const createUser = async (data: IUser) => {
   const userModel = db<IUser>('users');
   const { email, first_name, last_name, password, profile_url } = data;
-  const user = await userModel.select('email');
+  const user = await userModel.select('email').where('email', email);
   if (user) {
     return 'User already exists!!';
   }
-  await db<IUser>('users').insert({
+  await userModel.insert({
     email,
     first_name,
     last_name,
