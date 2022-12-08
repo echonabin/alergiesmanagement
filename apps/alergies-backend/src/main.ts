@@ -18,17 +18,18 @@ app.get(API_ENDPOINTS.base_url, (req, res) => {
 
 checkDbConnection()
   .then((res) => {
-    console.log(res);
-    // Startup Routes
-    startupRoutes(app);
+    if (res.code !== 'ECONNREFUSED') {
+      // Startup Routes
+      startupRoutes(app);
 
-    const server = app.listen(port, () => {
-      console.log(`⚡️Server listening at http://localhost:${port}/api`);
-    });
+      const server = app.listen(port, () => {
+        console.log(`⚡️Server listening at http://localhost:${port}/api`);
+      });
 
-    server.on('error', (err) => {
-      app.response.json({ message: 'Error in server', err: { err } });
-    });
+      server.on('error', (err) => {
+        app.response.json({ message: 'Error in server', err: { err } });
+      });
+    }
   })
   .catch((error) => {
     console.log(error);
