@@ -1,5 +1,9 @@
 import { Request, Response } from 'express';
-import { createUserService, loginUserService } from '../services/user-service';
+import {
+  createUserService,
+  loginUserService,
+  refreshTokenService,
+} from '../services/user-service';
 import { AuthValidator } from '../validators/user-validator';
 
 export const createUserController = async (req: Request, res: Response) => {
@@ -24,6 +28,19 @@ export const loginUserController = async (req: Request, res: Response) => {
       return res.status(400).json({ error });
     }
     const response = await loginUserService(req.body);
+    res.status(200).json({ response });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const refreshTokenController = async (req: Request, res: Response) => {
+  try {
+    const { token } = req.query;
+    const data = {
+      token: token.toString(),
+    };
+    const response = await refreshTokenService(data);
     res.status(200).json({ response });
   } catch (error) {
     console.log(error);

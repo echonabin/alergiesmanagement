@@ -2,9 +2,9 @@ export const API_ENDPOINTS = {
   host_url: 'http://localhost:3333',
   base_url: '/api',
   auth: {
-    login: '/auth/login',
-    register: '/auth/register',
-    refresh: '/auth/refresh',
+    signin: '/auth/signin',
+    signup: '/auth/signup',
+    refresh: '/auth/refresh-token',
   },
   allergies: {
     get: '/allergies',

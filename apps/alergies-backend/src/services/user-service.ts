@@ -1,4 +1,4 @@
-import { createUser, loginUser } from '../dao/user';
+import { createUser, loginUser, refreshToken } from '../dao/user-dao';
 import { IUser } from '../types';
 import { hash } from '../utils/auth-utils';
 
@@ -29,5 +29,11 @@ export const createUserService = async (data: {
 
 export const loginUserService = async (data: LoginProps) => {
   const response = await loginUser(data);
+  return response;
+};
+
+export const refreshTokenService = async (data: { token: string }) => {
+  const response = await refreshToken(data.token);
+  // FIXME: Return response data
   return response;
 };
