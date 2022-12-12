@@ -34,13 +34,17 @@ export const createAllergyController = async (
       createdBy: req.auth.account.user_id,
     };
     const response = await createAllergyService(data);
-    res.status(200).json({ response });
+    apiResponse({ response, res, next, statusCode: 201 });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getAllergiesController = async (req: Request, res: Response) => {
+export const getAllergiesController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const page = req.query.page ? parseInt(req.query.page.toString()) : 0;
   const limit = req.query.limit ? parseInt(req.query.limit.toString()) : 10;
   try {
@@ -49,7 +53,7 @@ export const getAllergiesController = async (req: Request, res: Response) => {
       limit,
     };
     const response = await getAllergiesService(data);
-    res.status(200).json({ response });
+    apiResponse({ response, res, next, statusCode: 200 });
   } catch (error) {
     console.log(error);
   }
@@ -57,11 +61,12 @@ export const getAllergiesController = async (req: Request, res: Response) => {
 
 export const getSingleAllergyController = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ) => {
   const id = req.params.id.toString();
   const response = await getSingleAllergyService(id);
-  res.status(200).json({ response });
+  apiResponse({ response, res, next, statusCode: 200 });
 };
 
 export const updateAllergyController = async (
@@ -75,7 +80,7 @@ export const updateAllergyController = async (
   } else {
     const { id } = req.params;
     const response = await updateAllergyService(id, req.body);
-    res.status(200).json({ response });
+    apiResponse({ response, res, next, statusCode: 200 });
   }
 };
 
@@ -88,7 +93,7 @@ export const deleteAlleryController = async (
   const { user_id } = req.auth.account;
   try {
     const response = await deleteAlleryService(id, user_id.toString());
-    apiResponse(response, res, next);
+    apiResponse({ response, res, next, statusCode: 200 });
   } catch (error) {
     next(error);
   }

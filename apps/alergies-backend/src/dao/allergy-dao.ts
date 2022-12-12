@@ -38,14 +38,20 @@ export const createAllergy = async (data: IAllergy) => {
 export const getAllergies = async (page, limit) => {
   const allergyModel = db<IAllergy>('allergies');
   try {
-    const table_rows = await allergyModel.clone().count();
+    const table_rows = await allergyModel
+      .clone()
+      .where('deleted_by', null)
+      .count();
     const { count } = table_rows[0] as { count: string };
 
     const allergies = await allergyModel
       .select('*')
+      .where('deleted_by', null)
       .limit(limit)
       .offset(page * limit);
-
+    if (allergies.length === 0) {
+      return "There aren't any allergies, please create one.";
+    }
     const data = {
       count: parseInt(count),
       rows: allergies,
@@ -60,7 +66,13 @@ export const getAllergies = async (page, limit) => {
 export const getSingleAllergy = async (id: string) => {
   const allergyModel = db<IAllergy>('allergies');
   try {
-    const allergy = await allergyModel.select('*').where('id', id);
+    const allergy = await allergyModel
+      .select('*')
+      .where('id', id)
+      .andWhere('deleted_by', null);
+    if (allergy.length === 0) {
+      return `No allergy found with this id ${id}!`;
+    }
     return allergy;
   } catch (error) {
     console.log(error);
@@ -81,13 +93,12 @@ export const updateAllergy = async (id: string, data: IAllergy) => {
 export const deleteAllery = async (id: string, userId: string) => {
   const allergyModel = db<IAllergy>('allergies');
   try {
-    // const response = await allergyModel
-    //   .where('id', id)
-    //   .update({
-    //     deleted_by: parseInt(userId),
-    //   })
-    //   .returning('id');
-    const response = await allergyModel.select('*').count();
+    const response = await allergyModel
+      .where('id', id)
+      .update({
+        deleted_by: parseInt(userId),
+      })
+      .returning('id');
     return `Allergy with id ${response[0].id} deleted!!`;
   } catch (error) {
     console.log(error);
