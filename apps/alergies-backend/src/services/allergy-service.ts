@@ -1,4 +1,4 @@
-import { createAllergy } from '../dao/allergy-dao';
+import { createAllergy, getAllergies } from '../dao/allergy-dao';
 import { AllergyProps, IAllergy } from '../types/allergy-types';
 
 export const createAllergyService = async (data: AllergyProps) => {
@@ -23,5 +23,14 @@ export const createAllergyService = async (data: AllergyProps) => {
 
   const response = await createAllergy(finalData);
 
+  return response;
+};
+
+export const getAllergiesService = async (data: {
+  page: number;
+  limit: number;
+}) => {
+  const { limit, page } = data;
+  const response = await getAllergies(page, limit);
   return response;
 };
