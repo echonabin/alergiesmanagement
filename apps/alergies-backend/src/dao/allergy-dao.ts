@@ -78,6 +78,23 @@ export const updateAllergy = async (id: string, data: IAllergy) => {
   }
 };
 
+export const deleteAllery = async (id: string, userId: string) => {
+  const allergyModel = db<IAllergy>('allergies');
+  try {
+    // const response = await allergyModel
+    //   .where('id', id)
+    //   .update({
+    //     deleted_by: parseInt(userId),
+    //   })
+    //   .returning('id');
+    const response = await allergyModel.select('*').count();
+    return `Allergy with id ${response[0].id} deleted!!`;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
 export const hardDeleteAllergy = async (id: string) => {
   const allergyModel = db<IAllergy>('allergies');
   try {

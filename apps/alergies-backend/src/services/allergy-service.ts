@@ -1,5 +1,6 @@
 import {
   createAllergy,
+  deleteAllery,
   getAllergies,
   getSingleAllergy,
   updateAllergy,
@@ -55,5 +56,10 @@ export const updateAllergyService = async (id: string, data: AllergyProps) => {
     } else Object.assign(finalData, { [key]: data[key] });
   }
   const response = await updateAllergy(id, finalData);
+  return response;
+};
+
+export const deleteAlleryService = async (id: string, userId: string) => {
+  const response = await deleteAllery(id, userId);
   return response;
 };

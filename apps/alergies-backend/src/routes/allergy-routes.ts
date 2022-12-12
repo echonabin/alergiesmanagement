@@ -2,6 +2,7 @@ import * as express from 'express';
 import { API_ENDPOINTS } from '@alergiesmanagement/constants';
 import {
   createAllergyController,
+  deleteAlleryController,
   getAllergiesController,
   getSingleAllergyController,
   updateAllergyController,
@@ -26,5 +27,9 @@ router.get(allergies.getOne, authorize(), getSingleAllergyController);
 // @Method: PUT
 // @Path: /api/allergy/{id}
 router.put(allergies.update, authorize(), updateAllergyController);
+
+// @Method: DELETE
+// @Path: /api/allergy/{id}
+router.delete(allergies.delete, authorize(), deleteAlleryController);
 
 export { router as allergyRouter };

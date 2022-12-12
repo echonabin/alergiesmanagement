@@ -2,10 +2,12 @@ import { NextFunction, Request, Response } from 'express';
 import { RequestValidationError } from '../errors/request-validation-error';
 import {
   createAllergyService,
+  deleteAlleryService,
   getAllergiesService,
   getSingleAllergyService,
   updateAllergyService,
 } from '../services/allergy-service';
+import { apiResponse } from '../utils/resp-normalization';
 import { AllergyValidator } from '../validators/allergy-validator';
 
 interface ExtendedReqObj extends Request {
@@ -74,5 +76,20 @@ export const updateAllergyController = async (
     const { id } = req.params;
     const response = await updateAllergyService(id, req.body);
     res.status(200).json({ response });
+  }
+};
+
+export const deleteAlleryController = async (
+  req: ExtendedReqObj,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  const { user_id } = req.auth.account;
+  try {
+    const response = await deleteAlleryService(id, user_id.toString());
+    apiResponse(response, res, next);
+  } catch (error) {
+    next(error);
   }
 };
