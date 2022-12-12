@@ -1,4 +1,5 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
+import { RequestValidationError } from '../errors/request-validation-error';
 import {
   createUserService,
   loginUserService,
@@ -6,12 +7,16 @@ import {
 } from '../services/user-service';
 import { AuthValidator } from '../validators/user-validator';
 
-export const createUserController = async (req: Request, res: Response) => {
+export const createUserController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { error } = AuthValidator.register_user(req.body);
     // FIXME: Add Error logic with middleware later
     if (error) {
-      return res.status(400).json({ error });
+      throw next(new RequestValidationError(error));
     }
     const response = await createUserService(req.body);
     res.status(200).json({ response });
@@ -20,21 +25,29 @@ export const createUserController = async (req: Request, res: Response) => {
   }
 };
 
-export const loginUserController = async (req: Request, res: Response) => {
+export const loginUserController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { error } = AuthValidator.login_user(req.body);
     // FIXME: Add Error logic with middleware later
     if (error) {
-      return res.status(400).json({ error });
+      throw next(new RequestValidationError(error));
     }
     const response = await loginUserService(req.body);
     res.status(200).json({ response });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
-export const refreshTokenController = async (req: Request, res: Response) => {
+export const refreshTokenController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { token } = req.query;
     const data = {
@@ -43,6 +56,6 @@ export const refreshTokenController = async (req: Request, res: Response) => {
     const response = await refreshTokenService(data);
     res.status(200).json({ response });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };

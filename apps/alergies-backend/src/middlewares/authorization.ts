@@ -33,12 +33,12 @@ export const authorize = () => {
       if (!account) {
         // account no longer exists or role not authorized
         return res.status(401).json({ message: 'Unauthorized', status: 401 });
+      } else {
+        //   authentication and authorization successful
+        user.ownsToken = (token: string) =>
+          !!refreshTokens.find((x: any) => x.token === token);
+        next();
       }
-
-      //   authentication and authorization successful
-      user.ownsToken = (token: string) =>
-        !!refreshTokens.find((x: any) => x.token === token);
-      next();
     },
   ];
 };

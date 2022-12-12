@@ -54,6 +54,37 @@ export const getAllergies = async (page, limit) => {
     return response;
   } catch (error) {
     console.log(error);
-    return 'Error, something went wrong!!';
+  }
+};
+
+export const getSingleAllergy = async (id: string) => {
+  const allergyModel = db<IAllergy>('allergies');
+  try {
+    const allergy = await allergyModel.select('*').where('id', id);
+    return allergy;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+export const updateAllergy = async (id: string, data: IAllergy) => {
+  const allergyModel = db<IAllergy>('allergies');
+  try {
+    await allergyModel.where('id', id).update(data);
+    return `Allergy Updated successfully!!`;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const hardDeleteAllergy = async (id: string) => {
+  const allergyModel = db<IAllergy>('allergies');
+  try {
+    const response = await allergyModel.where('id', id).del().returning('id');
+    return `Allergy with id ${response[0].id} permanently deleted!!`;
+  } catch (error) {
+    console.log(error);
+    return error;
   }
 };

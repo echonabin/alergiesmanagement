@@ -9,7 +9,7 @@ import { IUser, IDatabaseInstance, IRefreshToken } from '../types';
 export const generateJwtToken = (account: IUser) => {
   // create a jwt token containing the account id that expires in 15 minutes
   return jwt.sign({ account }, process.env.NX_JWT_SECRET, {
-    expiresIn: '10m',
+    expiresIn: process.env.NX_JWT_EXPIRATION_TIME,
   });
 };
 

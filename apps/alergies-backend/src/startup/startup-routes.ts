@@ -25,6 +25,5 @@ export default (app: Express) => {
       ],
     });
   });
-
   app.use(errorHandler);
 };

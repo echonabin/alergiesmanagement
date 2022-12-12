@@ -15,10 +15,14 @@ export const AllergyValidator = {
   },
   update_allergy: (data) => {
     const schema = Joi.object({
-      _id: Joi.number().forbidden(),
-    })
-      .min(1)
-      .unknown(true);
+      id: Joi.number().forbidden(),
+      name: Joi.string().optional(),
+      symptoms: Joi.string().optional(),
+      severity: Joi.string().optional(),
+      allergyImage: Joi.string().optional(),
+      treatments: Joi.string().optional(),
+      notes: Joi.string().optional(),
+    }).min(1);
     return schema.validate(data);
   },
 };
