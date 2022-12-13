@@ -4,13 +4,14 @@ export const apiResponse = (data: {
   response: any;
   res: Response;
   next: NextFunction;
-  statusCode: number;
+  statusCode?: number;
+  message?: string;
 }) => {
-  const { res, next, statusCode, response } = data;
+  const { res, next, statusCode = 200, response, message = 'success' } = data;
   if (response instanceof Error) {
     return next(response);
   }
   res
     .status(statusCode)
-    .json({ message: 'success', status: statusCode, response });
+    .json({ message: message, status: statusCode, response });
 };

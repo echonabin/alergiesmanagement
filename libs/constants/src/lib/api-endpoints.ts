@@ -13,5 +13,6 @@ export const API_ENDPOINTS = {
     update: '/allergy/:id',
     delete: '/allergy/:id',
     hardDelete: '/allergy/hard-delete/:id',
+    restore: '/allergy/restore-allergy/:id',
   },
 };

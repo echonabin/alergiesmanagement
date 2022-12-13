@@ -5,6 +5,8 @@ import {
   deleteAlleryController,
   getAllergiesController,
   getSingleAllergyController,
+  hardDeleteAllergyController,
+  restoreAllergyController,
   updateAllergyController,
 } from '../controllers/allergy-controller';
 import { authorize } from '../middlewares/authorization';
@@ -31,5 +33,13 @@ router.put(allergies.update, authorize(), updateAllergyController);
 // @Method: DELETE
 // @Path: /api/allergy/{id}
 router.delete(allergies.delete, authorize(), deleteAlleryController);
+
+// @Method: DELETE
+// @Path: /api/allergy/hard-delete/{id}
+router.delete(allergies.hardDelete, authorize(), hardDeleteAllergyController);
+
+// @Method: Put
+// @Path: /api/restore-allergy/{id}
+router.put(allergies.restore, authorize(), restoreAllergyController);
 
 export { router as allergyRouter };

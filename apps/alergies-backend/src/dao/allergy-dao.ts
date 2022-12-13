@@ -1,4 +1,5 @@
 import db from '../db/db';
+import { DatabaseValidationErr } from '../errors/database-validation-error';
 import { IAllergy } from '../types/allergy-types';
 import { addPaging } from '../utils/add-pagination';
 
@@ -30,8 +31,7 @@ export const createAllergy = async (data: IAllergy) => {
     return 'Allergy created successfully!!';
   } catch (error) {
     console.log(error);
-    // FIXME: Add good error log here
-    return 'Error occured while adding allergy!!';
+    return error;
   }
 };
 
@@ -60,6 +60,7 @@ export const getAllergies = async (page, limit) => {
     return response;
   } catch (error) {
     console.log(error);
+    return error;
   }
 };
 
@@ -87,6 +88,7 @@ export const updateAllergy = async (id: string, data: IAllergy) => {
     return `Allergy Updated successfully!!`;
   } catch (error) {
     console.log(error);
+    return error;
   }
 };
 
@@ -95,11 +97,36 @@ export const deleteAllery = async (id: string, userId: string) => {
   try {
     const response = await allergyModel
       .where('id', id)
+      .andWhere('deleted_by', null)
       .update({
         deleted_by: parseInt(userId),
       })
       .returning('id');
+
+    if (!response.length) {
+      throw new DatabaseValidationErr();
+    }
     return `Allergy with id ${response[0].id} deleted!!`;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+export const restoreAllergy = async (id: string, userId: string) => {
+  const allergyModel = db<IAllergy>('allergies');
+  try {
+    const response = await allergyModel
+      .where('id', id)
+      .andWhere('deleted_by', userId)
+      .update({
+        deleted_by: null,
+      })
+      .returning('id');
+    if (!response.length) {
+      throw new DatabaseValidationErr();
+    }
+    return `Allergy with id ${response[0].id} restored!!`;
   } catch (error) {
     console.log(error);
     return error;
@@ -110,6 +137,9 @@ export const hardDeleteAllergy = async (id: string) => {
   const allergyModel = db<IAllergy>('allergies');
   try {
     const response = await allergyModel.where('id', id).del().returning('id');
+    if (!response.length) {
+      throw new DatabaseValidationErr();
+    }
     return `Allergy with id ${response[0].id} permanently deleted!!`;
   } catch (error) {
     console.log(error);

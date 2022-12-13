@@ -5,6 +5,8 @@ import {
   deleteAlleryService,
   getAllergiesService,
   getSingleAllergyService,
+  hardDeleteAllergyService,
+  restoreAllergyService,
   updateAllergyService,
 } from '../services/allergy-service';
 import { apiResponse } from '../utils/resp-normalization';
@@ -36,7 +38,7 @@ export const createAllergyController = async (
     const response = await createAllergyService(data);
     apiResponse({ response, res, next, statusCode: 201 });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
@@ -53,9 +55,9 @@ export const getAllergiesController = async (
       limit,
     };
     const response = await getAllergiesService(data);
-    apiResponse({ response, res, next, statusCode: 200 });
+    apiResponse({ response, res, next });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
@@ -66,7 +68,7 @@ export const getSingleAllergyController = async (
 ) => {
   const id = req.params.id.toString();
   const response = await getSingleAllergyService(id);
-  apiResponse({ response, res, next, statusCode: 200 });
+  apiResponse({ response, res, next });
 };
 
 export const updateAllergyController = async (
@@ -80,7 +82,7 @@ export const updateAllergyController = async (
   } else {
     const { id } = req.params;
     const response = await updateAllergyService(id, req.body);
-    apiResponse({ response, res, next, statusCode: 200 });
+    apiResponse({ response, res, next });
   }
 };
 
@@ -93,7 +95,36 @@ export const deleteAlleryController = async (
   const { user_id } = req.auth.account;
   try {
     const response = await deleteAlleryService(id, user_id.toString());
-    apiResponse({ response, res, next, statusCode: 200 });
+    apiResponse({ response, res, next });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const restoreAllergyController = async (
+  req: ExtendedReqObj,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  const { user_id } = req.auth.account;
+  try {
+    const response = await restoreAllergyService(id, user_id.toString());
+    apiResponse({ response, res, next });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const hardDeleteAllergyController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  try {
+    const response = await hardDeleteAllergyService(id);
+    apiResponse({ response, res, next });
   } catch (error) {
     next(error);
   }

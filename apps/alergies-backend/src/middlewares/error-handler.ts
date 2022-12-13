@@ -24,19 +24,25 @@ export const errorHandler = async (
   next: NextFunction
 ) => {
   const errorModel = db<IError>('errorlogs');
+  const { user_id } = req.auth.account;
+
+  const insertIntoDb = async () => {
+    await errorModel.insert({
+      description: JSON.stringify(err),
+      error_user: user_id,
+    });
+  };
+
   if (err instanceof CustomError) {
+    await insertIntoDb();
     return res.status(err.statusCode).send({ errors: err.serializeErrors() });
   }
 
   if (err.name === 'UnauthorizedError') {
     return res.status(401).send({ errors: [{ message: err.message }] });
   }
-  const { user_id } = req.auth.account;
 
-  await errorModel.insert({
-    description: JSON.stringify(err),
-    error_user: user_id,
-  });
+  await insertIntoDb();
 
   res.status(400).send({
     errors: [{ message: 'Something went wrong on the server!!' }],

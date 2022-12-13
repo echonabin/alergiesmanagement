@@ -3,6 +3,8 @@ import {
   deleteAllery,
   getAllergies,
   getSingleAllergy,
+  hardDeleteAllergy,
+  restoreAllergy,
   updateAllergy,
 } from '../dao/allergy-dao';
 import { AllergyProps, IAllergy } from '../types/allergy-types';
@@ -61,5 +63,15 @@ export const updateAllergyService = async (id: string, data: AllergyProps) => {
 
 export const deleteAlleryService = async (id: string, userId: string) => {
   const response = await deleteAllery(id, userId);
+  return response;
+};
+
+export const restoreAllergyService = async (id: string, userId: string) => {
+  const response = await restoreAllergy(id, userId);
+  return response;
+};
+
+export const hardDeleteAllergyService = async (id: string) => {
+  const response = await hardDeleteAllergy(id);
   return response;
 };
