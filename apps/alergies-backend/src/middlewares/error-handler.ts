@@ -24,9 +24,9 @@ export const errorHandler = async (
   next: NextFunction
 ) => {
   const errorModel = db<IError>('errorlogs');
-  const { user_id } = req.auth.account;
 
   const insertIntoDb = async () => {
+    const { user_id } = req.auth.account;
     await errorModel.insert({
       description: JSON.stringify(err),
       error_user: user_id,

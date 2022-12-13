@@ -1,6 +1,7 @@
 import * as moment from 'moment';
 
 import db from '../db/db';
+import { DatabaseValidationErr } from '../errors/database-validation-error';
 import { IRefreshToken, IUser } from '../types';
 import {
   basicDetails,
@@ -13,8 +14,8 @@ export const createUser = async (data: IUser) => {
   const userModel = db<IUser>('users');
   const { email, first_name, last_name, password, profile_url } = data;
   const user = await userModel.select('email').where('email', email);
-  if (user) {
-    return 'User already exists!!';
+  if (user.length) {
+    throw new DatabaseValidationErr({ reason: 'User already exists!!' });
   }
   await userModel.insert({
     email,
@@ -34,10 +35,13 @@ export const loginUser = async (data: { email: string; password: string }) => {
     .returning('*')
     .first();
 
-  const isValidPassword = user && compare(data.password, user.password);
+  const isValidPassword = user && (await compare(data.password, user.password));
+
   // FIXME: ADD Better error handler later
-  if (!user && !isValidPassword) {
-    return 'Email or password you provided is incorrect!';
+  if (!user || !isValidPassword) {
+    throw new DatabaseValidationErr({
+      reason: 'Email or password provided is incorrect!',
+    });
   }
   const jwtToken = generateJwtToken(user);
   const refreshToken = await generateRefreshToken(user, db);
