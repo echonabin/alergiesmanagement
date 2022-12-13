@@ -34,7 +34,6 @@ export const errorHandler = async (
   };
 
   if (err instanceof CustomError) {
-    await insertIntoDb();
     return res.status(err.statusCode).send({ errors: err.serializeErrors() });
   }
 

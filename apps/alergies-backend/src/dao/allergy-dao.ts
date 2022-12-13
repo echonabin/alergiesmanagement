@@ -17,7 +17,9 @@ export const createAllergy = async (data: IAllergy) => {
   try {
     const allergy = await allergyModel.select('*').where('name', name).first();
     if (allergy) {
-      return 'Allergy already exists';
+      throw new DatabaseValidationErr({
+        reason: 'Allergy with this name already exists!',
+      });
     }
     await allergyModel.insert({
       name,
@@ -49,7 +51,7 @@ export const getAllergies = async (page, limit) => {
       .where('deleted_by', null)
       .limit(limit)
       .offset(page * limit);
-    if (allergies.length === 0) {
+    if (!allergies.length) {
       return "There aren't any allergies, please create one.";
     }
     const data = {
@@ -71,8 +73,8 @@ export const getSingleAllergy = async (id: string) => {
       .select('*')
       .where('id', id)
       .andWhere('deleted_by', null);
-    if (allergy.length === 0) {
-      return `No allergy found with this id ${id}!`;
+    if (!allergy.length) {
+      throw new DatabaseValidationErr({ reason: 'Allergy not exists!' });
     }
     return allergy;
   } catch (error) {
@@ -104,7 +106,7 @@ export const deleteAllery = async (id: string, userId: string) => {
       .returning('id');
 
     if (!response.length) {
-      throw new DatabaseValidationErr();
+      throw new DatabaseValidationErr({ reason: 'Allergy not exists!' });
     }
     return `Allergy with id ${response[0].id} deleted!!`;
   } catch (error) {
@@ -124,7 +126,7 @@ export const restoreAllergy = async (id: string, userId: string) => {
       })
       .returning('id');
     if (!response.length) {
-      throw new DatabaseValidationErr();
+      throw new DatabaseValidationErr({ reason: 'Allergy not exists!' });
     }
     return `Allergy with id ${response[0].id} restored!!`;
   } catch (error) {
@@ -138,7 +140,7 @@ export const hardDeleteAllergy = async (id: string) => {
   try {
     const response = await allergyModel.where('id', id).del().returning('id');
     if (!response.length) {
-      throw new DatabaseValidationErr();
+      throw new DatabaseValidationErr({ reason: 'Allergy not exists!' });
     }
     return `Allergy with id ${response[0].id} permanently deleted!!`;
   } catch (error) {
