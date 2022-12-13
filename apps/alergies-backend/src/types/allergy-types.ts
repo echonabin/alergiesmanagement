@@ -9,7 +9,7 @@ export interface IAllergy extends IDefaultTimeStamp {
   notes?: string;
   is_active: boolean;
   created_by?: number;
-  updated_by?: number;
+  updated_by?: string;
   deleted_by?: number;
 }
 

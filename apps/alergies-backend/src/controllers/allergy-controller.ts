@@ -72,16 +72,21 @@ export const getSingleAllergyController = async (
 };
 
 export const updateAllergyController = async (
-  req: Request,
+  req: ExtendedReqObj,
   res: Response,
   next: NextFunction
 ) => {
   const { error } = AllergyValidator.update_allergy(req.body);
+  const { user_id } = req.auth.account;
   if (error) {
     next(new RequestValidationError(error));
   } else {
     const { id } = req.params;
-    const response = await updateAllergyService(id, req.body);
+    const response = await updateAllergyService(
+      id,
+      req.body,
+      user_id.toString()
+    );
     apiResponse({ response, res, next });
   }
 };

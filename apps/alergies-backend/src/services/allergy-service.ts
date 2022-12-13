@@ -48,8 +48,14 @@ export const getSingleAllergyService = async (id: string) => {
   return response;
 };
 
-export const updateAllergyService = async (id: string, data: AllergyProps) => {
-  const finalData = {} as IAllergy;
+export const updateAllergyService = async (
+  id: string,
+  data: AllergyProps,
+  userId: string
+) => {
+  const finalData = {
+    updated_by: userId,
+  } as IAllergy;
   for (const key in data) {
     if (key === 'allergyImage') {
       Object.assign(finalData, { allergy_image: data[key] });

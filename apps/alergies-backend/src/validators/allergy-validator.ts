@@ -16,7 +16,7 @@ export const AllergyValidator = {
   update_allergy: (data) => {
     const schema = Joi.object({
       id: Joi.number().forbidden(),
-      name: Joi.string().optional(),
+      name: Joi.string().forbidden(),
       symptoms: Joi.string().optional(),
       severity: Joi.string().optional(),
       allergyImage: Joi.string().optional(),
