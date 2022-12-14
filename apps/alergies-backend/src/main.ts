@@ -1,21 +1,20 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
+import { checkDbConnection } from './startup/db-checker';
+import { app } from './app';
+const port = process.env.NX_PORT || 3333;
 
-import * as express from 'express';
-import * as path from 'path';
+checkDbConnection()
+  .then((res) => {
+    if (res.code !== 'ECONNREFUSED') {
+      console.log(res);
+      const server = app.listen(port, () => {
+        console.log(`⚡️Server listening at http://localhost:${port}/api`);
+      });
 
-const app = express();
-
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
-
-app.get('/api', (req, res) => {
-  res.send({ message: 'Welcome to alergies-backend!' });
-});
-
-const port = process.env.port || 3333;
-const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}/api`);
-});
-server.on('error', console.error);
+      server.on('error', (err) => {
+        app.response.json({ message: 'Error in server', err: { err } });
+      });
+    }
+  })
+  .catch((error) => {
+    console.log(error);
+  });

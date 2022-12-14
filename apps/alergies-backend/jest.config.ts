@@ -8,6 +8,8 @@ export default {
     },
   },
   testEnvironment: 'node',
+  setupFilesAfterEnv: ['./src/test/setup.test.ts'],
+  testPathIgnorePatterns: ['./src/test/setup.test.ts'],
   transform: {
     '^.+\\.[tj]s$': 'ts-jest',
   },
