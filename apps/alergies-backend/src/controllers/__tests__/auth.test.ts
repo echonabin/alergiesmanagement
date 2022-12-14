@@ -5,6 +5,10 @@ const { base_url, auth } = API_ENDPOINTS;
 const { signin, signup, refresh } = auth;
 
 describe(`Initial route testing...`, () => {
+  test('Should respond with 404', async () => {
+    const response = await retriveData('/something_else');
+    expect(response.statusCode).toBe(404);
+  });
   test('Should respond with 200', async () => {
     const response = await retriveData('');
     expect(response.statusCode).toBe(200);
@@ -30,9 +34,7 @@ describe(`Auth testing....`, () => {
     expect(signupResponse.statusCode).toBe(201);
     expect(signinResponse.statusCode).toBe(200);
   });
-});
 
-describe('Auth validation error case', () => {
   test(`Should return validation error ${base_url + signup}`, async () => {
     const response = await submitData(
       {
@@ -45,6 +47,7 @@ describe('Auth validation error case', () => {
     );
     expect(response.statusCode).toBe(400);
   });
+
   test(`Should return validation error 400 ${base_url + signin}`, async () => {
     const response = await submitData(
       {
@@ -55,6 +58,7 @@ describe('Auth validation error case', () => {
     );
     expect(response.statusCode).toBe(400);
   });
+
   test(`Should return invalid email or password 400 ${
     base_url + signin
   }`, async () => {
@@ -67,13 +71,12 @@ describe('Auth validation error case', () => {
     );
     expect(response.statusCode).toBe(400);
   });
-});
 
-describe('Auth refresh token case', () => {
   test(`Should return 400 without token ${base_url + refresh}`, async () => {
     const response = await retriveData('/auth/refresh-token');
     expect(response.statusCode).toBe(400);
   });
+
   test(`Should return 200 with token ${base_url + refresh}`, async () => {
     const signup_response = await submitData(
       {

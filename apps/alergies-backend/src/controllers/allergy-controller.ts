@@ -25,21 +25,17 @@ export const createAllergyController = async (
   res: Response,
   next: NextFunction
 ) => {
-  try {
-    const { error } = AllergyValidator.create_allergy(req.body);
-    // FIXME: Add Error logic with middleware later
-    if (error) {
-      next(new RequestValidationError(error));
-    }
-    const data = {
-      ...req.body,
-      createdBy: req.auth.account.user_id,
-    };
-    const response = await createAllergyService(data);
-    apiResponse({ response, res, next, statusCode: 201 });
-  } catch (error) {
-    next(error);
+  const { error } = AllergyValidator.create_allergy(req.body);
+  // FIXME: Add Error logic with middleware later
+  if (error) {
+    return next(new RequestValidationError(error));
   }
+  const data = {
+    ...req.body,
+    createdBy: req.auth.account.user_id,
+  };
+  const response = await createAllergyService(data);
+  apiResponse({ response, res, next, statusCode: 201 });
 };
 
 export const getAllergiesController = async (
@@ -49,16 +45,12 @@ export const getAllergiesController = async (
 ) => {
   const page = req.query.page ? parseInt(req.query.page.toString()) : 0;
   const limit = req.query.limit ? parseInt(req.query.limit.toString()) : 10;
-  try {
-    const data = {
-      page,
-      limit,
-    };
-    const response = await getAllergiesService(data);
-    apiResponse({ response, res, next });
-  } catch (error) {
-    next(error);
-  }
+  const data = {
+    page,
+    limit,
+  };
+  const response = await getAllergiesService(data);
+  apiResponse({ response, res, next });
 };
 
 export const getSingleAllergyController = async (
@@ -79,7 +71,7 @@ export const updateAllergyController = async (
   const { error } = AllergyValidator.update_allergy(req.body);
   const { user_id } = req.auth.account;
   if (error) {
-    next(new RequestValidationError(error));
+    return next(new RequestValidationError(error));
   } else {
     const { id } = req.params;
     const response = await updateAllergyService(
@@ -98,12 +90,8 @@ export const deleteAlleryController = async (
 ) => {
   const { id } = req.params;
   const { user_id } = req.auth.account;
-  try {
-    const response = await deleteAlleryService(id, user_id.toString());
-    apiResponse({ response, res, next });
-  } catch (error) {
-    next(error);
-  }
+  const response = await deleteAlleryService(id, user_id.toString());
+  apiResponse({ response, res, next });
 };
 
 export const restoreAllergyController = async (
@@ -113,12 +101,8 @@ export const restoreAllergyController = async (
 ) => {
   const { id } = req.params;
   const { user_id } = req.auth.account;
-  try {
-    const response = await restoreAllergyService(id, user_id.toString());
-    apiResponse({ response, res, next });
-  } catch (error) {
-    next(error);
-  }
+  const response = await restoreAllergyService(id, user_id.toString());
+  apiResponse({ response, res, next });
 };
 
 export const hardDeleteAllergyController = async (
@@ -127,10 +111,6 @@ export const hardDeleteAllergyController = async (
   next: NextFunction
 ) => {
   const { id } = req.params;
-  try {
-    const response = await hardDeleteAllergyService(id);
-    apiResponse({ response, res, next });
-  } catch (error) {
-    next(error);
-  }
+  const response = await hardDeleteAllergyService(id);
+  apiResponse({ response, res, next });
 };

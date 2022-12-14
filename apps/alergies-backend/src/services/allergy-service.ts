@@ -58,9 +58,9 @@ export const updateAllergyService = async (
   } as IAllergy;
   for (const key in data) {
     if (key === 'allergyImage') {
-      Object.assign(finalData, { allergy_image: data[key] });
-    } else if (key === 'createdBy') {
-      Object.assign(finalData, { created_by: data[key] });
+      Object.assign(finalData, {
+        allergy_image: data[key],
+      });
     } else Object.assign(finalData, { [key]: data[key] });
   }
   const response = await updateAllergy(id, finalData);

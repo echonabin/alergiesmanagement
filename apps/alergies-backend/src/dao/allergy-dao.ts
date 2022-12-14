@@ -21,16 +21,18 @@ export const createAllergy = async (data: IAllergy) => {
         reason: 'Allergy with this name already exists!',
       });
     }
-    await allergyModel.insert({
-      name,
-      severity,
-      symptoms,
-      allergy_image,
-      created_by,
-      treatments,
-      notes,
-    });
-    return 'Allergy created successfully!!';
+    const response = await allergyModel
+      .insert({
+        name,
+        severity,
+        symptoms,
+        allergy_image,
+        created_by,
+        treatments,
+        notes,
+      })
+      .returning('*');
+    return response;
   } catch (error) {
     console.log(error);
     return error;
@@ -52,7 +54,9 @@ export const getAllergies = async (page, limit) => {
       .limit(limit)
       .offset(page * limit);
     if (!allergies.length) {
-      return "There aren't any allergies, please create one.";
+      throw new DatabaseValidationErr({
+        reason: "There aren't any allergies, please create one.",
+      });
     }
     const data = {
       count: parseInt(count),
@@ -74,23 +78,30 @@ export const getSingleAllergy = async (id: string) => {
       .where('id', id)
       .andWhere('deleted_by', null);
     if (!allergy.length) {
-      throw new DatabaseValidationErr({ reason: 'Allergy not exists!' });
+      return new DatabaseValidationErr({ reason: 'Allergy not exists!' });
     }
     return allergy;
   } catch (error) {
     console.log(error);
-    return error;
   }
 };
 
 export const updateAllergy = async (id: string, data: IAllergy) => {
   const allergyModel = db<IAllergy>('allergies');
   try {
-    await allergyModel.where('id', id).update(data);
-    return `Allergy Updated successfully!!`;
+    const allergy = await allergyModel.select('id').where('id', id);
+    if (!allergy.length) {
+      return new DatabaseValidationErr({
+        reason: "Allergy with this id dosen't exist!",
+      });
+    }
+    const response = await allergyModel
+      .where('id', id)
+      .update(data)
+      .returning('*');
+    return response;
   } catch (error) {
     console.log(error);
-    return error;
   }
 };
 
@@ -106,12 +117,11 @@ export const deleteAllery = async (id: string, userId: string) => {
       .returning('id');
 
     if (!response.length) {
-      throw new DatabaseValidationErr({ reason: 'Allergy not exists!' });
+      return new DatabaseValidationErr({ reason: 'Allergy not exists!' });
     }
     return `Allergy with id ${response[0].id} deleted!!`;
   } catch (error) {
     console.log(error);
-    return error;
   }
 };
 
@@ -126,7 +136,7 @@ export const restoreAllergy = async (id: string, userId: string) => {
       })
       .returning('id');
     if (!response.length) {
-      throw new DatabaseValidationErr({ reason: 'Allergy not exists!' });
+      return new DatabaseValidationErr({ reason: 'Allergy not exists!' });
     }
     return `Allergy with id ${response[0].id} restored!!`;
   } catch (error) {
@@ -140,7 +150,7 @@ export const hardDeleteAllergy = async (id: string) => {
   try {
     const response = await allergyModel.where('id', id).del().returning('id');
     if (!response.length) {
-      throw new DatabaseValidationErr({ reason: 'Allergy not exists!' });
+      return new DatabaseValidationErr({ reason: 'Allergy not exists!' });
     }
     return `Allergy with id ${response[0].id} permanently deleted!!`;
   } catch (error) {
