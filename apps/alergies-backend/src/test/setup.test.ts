@@ -1,4 +1,3 @@
-import { execSync } from 'child_process';
 import { submitData } from '../utils/test-utils';
 import { API_ENDPOINTS } from '@alergiesmanagement/constants';
 const { auth } = API_ENDPOINTS;
@@ -10,22 +9,15 @@ declare global {
   }
 }
 
-let migrated = 0;
-
 beforeEach(async () => {
-  if (!migrated) {
-    await db.migrate.latest();
-    migrated = 1;
-    console.log('Migrated...');
-  }
+  jest.setTimeout(30000);
+  await db.migrate.rollback();
+  await db.migrate.latest();
 });
 
 afterEach(async () => {
-  if (migrated) {
-    await db.migrate.rollback();
-    migrated = 0;
-    console.log('Migration undo..');
-  }
+  jest.setTimeout(30000);
+  await db.migrate.rollback();
 });
 
 global.signin = async () => {

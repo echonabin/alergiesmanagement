@@ -5,7 +5,7 @@
   "scripts": {
     "start:backend": "cross-env NODE_ENV=development nx serve alergies-backend",
     "build": "nx build",
-    "test": "cross-env NODE_ENV=test nx test",
+    "test": "cross-env NODE_ENV=test nx test --runInBand --coverage",
     "migrate:make": "knex migrate:make --migrations-directory apps/alergies-backend/src/db/migrations -x ts",
     "migrate:latest": "knex migrate:latest --knexfile apps/alergies-backend/src/db/knexfile.ts",
     "migrate:rollback": "knex migrate:rollback --knexfile apps/alergies-backend/src/db/knexfile.ts",

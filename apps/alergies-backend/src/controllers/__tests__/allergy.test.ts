@@ -21,40 +21,40 @@ describe(`Allergy  testing....`, () => {
     );
     expect(response.statusCode).toBe(201);
   });
-  //   test('Get allergies should respond with a 200 status code', async () => {
-  //     const token = await global.signin();
-  //     const createResp = await submitData(
-  //       {
-  //         name: 'Test',
-  //         symptoms: 'Lower abdomen pain',
-  //         treatments: 'Injection of lactose free',
-  //         notes: 'Please add carefully',
-  //         severity: 'Urgent',
-  //         allergyImage: 'https://google.com',
-  //       },
-  //       create,
-  //       token
-  //     );
-  //     expect(createResp.statusCode).toBe(201);
-  //     const getResponse = await retriveData(get, token);
-  //     expect(getResponse.statusCode).toBe(200);
-  //   });
-  //   test('Get single allergy should respond with a 200 status code', async () => {
-  //     const token = await global.signin();
-  //     const createResp = await submitData(
-  //       {
-  //         name: 'Test',
-  //         symptoms: 'Lower abdomen pain',
-  //         treatments: 'Injection of lactose free',
-  //         notes: 'Please add carefully',
-  //         severity: 'Urgent',
-  //         allergyImage: 'https://google.com',
-  //       },
-  //       create,
-  //       token
-  //     );
-  //     expect(createResp.statusCode).toBe(201);
-  //     const getResponse = await retriveData(`/allergy/1`);
-  //     expect(getResponse.statusCode).toBe(200);
-  //   });
+  test('Get allergies should respond with a 200 status code', async () => {
+    const token = await global.signin();
+    const createResp = await submitData(
+      {
+        name: 'Test',
+        symptoms: 'Lower abdomen pain',
+        treatments: 'Injection of lactose free',
+        notes: 'Please add carefully',
+        severity: 'Urgent',
+        allergyImage: 'https://google.com',
+      },
+      create,
+      token
+    );
+    expect(createResp.statusCode).toBe(201);
+    const getResponse = await retriveData(get, token);
+    expect(getResponse.statusCode).toBe(200);
+  });
+  test('Get single allergy should respond with a 200 status code', async () => {
+    const token = await global.signin();
+    const createResp = await submitData(
+      {
+        name: 'Test',
+        symptoms: 'Lower abdomen pain',
+        treatments: 'Injection of lactose free',
+        notes: 'Please add carefully',
+        severity: 'Urgent',
+        allergyImage: 'https://google.com',
+      },
+      create,
+      token
+    );
+    expect(createResp.statusCode).toBe(201);
+    const getResponse = await retriveData(`/allergy/1`, token);
+    expect(getResponse.statusCode).toBe(200);
+  });
 });

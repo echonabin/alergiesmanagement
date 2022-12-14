@@ -32,6 +32,7 @@ const config: IKnexConfig = {
     },
     migrations: {
       tableName: 'knex_migrations',
+      directory: 'apps/alergies-backend/src/db/migrations',
     },
   },
 };
