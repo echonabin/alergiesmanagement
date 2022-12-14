@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import { DatabaseValidationErr } from '../errors/database-validation-error';
 import { RequestValidationError } from '../errors/request-validation-error';
 import {
   createUserService,
@@ -50,6 +51,12 @@ export const refreshTokenController = async (
 ) => {
   try {
     const { token } = req.query;
+    if (!token) {
+      throw new DatabaseValidationErr({
+        reason: 'Token is required',
+        statusCode: 400,
+      });
+    }
     const data = {
       token: token.toString(),
     };
