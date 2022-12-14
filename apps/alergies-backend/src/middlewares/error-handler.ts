@@ -27,10 +27,13 @@ export const errorHandler = async (
 
   const insertIntoDb = async () => {
     const { user_id } = req.auth.account;
-    await errorModel.insert({
-      description: JSON.stringify(err),
-      error_user: user_id,
-    });
+    if (user_id) {
+      await errorModel.insert({
+        description: JSON.stringify(err),
+        error_user: user_id,
+      });
+    }
+    return;
   };
 
   if (err instanceof CustomError) {
