@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@alergiesmanagement/components": ["libs/components/src/index.ts"],
       "@alergiesmanagement/constants": ["libs/constants/src/index.ts"]
     }
   },
