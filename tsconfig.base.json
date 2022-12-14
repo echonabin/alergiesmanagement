@@ -17,7 +17,8 @@
     "paths": {
       "@alergiesmanagement/components": ["libs/components/src/index.ts"],
       "@alergiesmanagement/constants": ["libs/constants/src/index.ts"],
-      "@alergiesmanagement/store": ["libs/store/src/index.ts"]
+      "@alergiesmanagement/store": ["libs/store/src/index.ts"],
+      "@alergiesmanagement/utils": ["libs/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
