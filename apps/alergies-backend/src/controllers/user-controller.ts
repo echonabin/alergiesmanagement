@@ -8,18 +8,25 @@ import {
 } from '../services/user-service';
 import { AuthValidator } from '../validators/user-validator';
 
+interface ExtendedReq extends Request {
+  files: { location: string }[];
+}
+
 export const createUserController = async (
-  req: Request,
+  req: ExtendedReq,
   res: Response,
   next: NextFunction
 ) => {
   try {
     const { error } = AuthValidator.register_user(req.body);
-    // FIXME: Add Error logic with middleware later
     if (error) {
       throw next(new RequestValidationError(error));
     }
-    const response = await createUserService(req.body);
+    const finalData = {
+      profileUrl: req.files[0].location,
+      ...req.body,
+    };
+    const response = await createUserService(finalData);
     res.status(201).json({ response });
   } catch (error) {
     next(error);

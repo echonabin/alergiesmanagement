@@ -12,14 +12,16 @@ export const createUserService = async (data: {
   lastName: string;
   email: string;
   password: string;
+  profileUrl: string;
 }) => {
-  const { firstName, lastName, email, password } = data;
+  const { firstName, lastName, email, password, profileUrl } = data;
 
   const finalData = {
     first_name: firstName,
     last_name: lastName,
     email,
     password: hash(password),
+    profile_url: profileUrl,
   } as IUser;
 
   const response = await createUser(finalData);

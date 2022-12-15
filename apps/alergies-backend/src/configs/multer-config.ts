@@ -13,7 +13,7 @@ const s3 = new S3Client({
 export const upload = multer({
   storage: multerS3({
     s3: s3,
-    bucket: 'practitionerbucket1',
+    bucket: process.env.NX_AWS_BUCKET_NAME,
     acl: 'public-read',
     metadata: function (req, file, cb) {
       cb(null, { fieldName: file.fieldname });

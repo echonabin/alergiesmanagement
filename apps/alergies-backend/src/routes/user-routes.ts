@@ -5,13 +5,14 @@ import {
   refreshTokenController,
 } from '../controllers/user-controller';
 import { API_ENDPOINTS } from '@alergiesmanagement/constants';
+import { upload } from '../configs/multer-config';
 
 const { auth } = API_ENDPOINTS;
 const router = express.Router();
 
 // @Method: POST
 // @Path: /api/auth/register
-router.post(auth.signup, createUserController);
+router.post(auth.signup, upload.array('image'), createUserController);
 
 // @Method: POST
 // @Path: /api/auth/login
