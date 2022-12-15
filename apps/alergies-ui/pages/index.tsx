@@ -3,7 +3,7 @@ import { Button } from '@alergiesmanagement/components';
 const Index = () => {
   return (
     <div>
-      <Button varient="primary" />
+      <div>Landing Page</div>;
     </div>
   );
 };

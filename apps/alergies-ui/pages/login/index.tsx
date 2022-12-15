@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import React from 'react';
 import { useRouter } from 'next/router';
-import { Button, LoginForm } from '@allergiesmanagement/components';
+import { Button } from '@alergiesmanagement/components';
 // import { withAuth } from '@alergiesmanagement/utils';
 
 const Login = () => {
@@ -18,7 +18,8 @@ const Login = () => {
             Sign in
           </p>
           <div className="pt-8">
-            <LoginForm />
+            {/* <LoginForm /> */}
+            <h1>Will be login form</h1>
           </div>
           <div className="flex mt-6 items-center space-x-2 place-self-center">
             <span className="w-40 h-[1px] bg-gray-300"></span>
