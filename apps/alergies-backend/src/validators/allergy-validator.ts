@@ -7,7 +7,7 @@ export const AllergyValidator = {
       name: Joi.string().required(),
       symptoms: Joi.string().required(),
       severity: Joi.string().required(),
-      allergyImage: Joi.string().required(),
+      allergyImage: Joi.string().optional(),
       treatments: Joi.string().optional(),
       notes: Joi.string().optional(),
     });
@@ -22,7 +22,7 @@ export const AllergyValidator = {
       allergyImage: Joi.string().optional(),
       treatments: Joi.string().optional(),
       notes: Joi.string().optional(),
-    }).min(1);
+    }).min(0);
     return schema.validate(data);
   },
 };
