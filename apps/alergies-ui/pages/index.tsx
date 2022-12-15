@@ -1,7 +1,11 @@
 import React from 'react';
-
+import { Button } from '@alergiesmanagement/components';
 const Index = () => {
-  return <div className="bg-[#f4a261]">something</div>;
+  return (
+    <div>
+      <Button varient="primary" />
+    </div>
+  );
 };
 
 export default Index;
