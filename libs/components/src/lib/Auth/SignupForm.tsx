@@ -18,6 +18,14 @@ interface RootState {
   };
 }
 
+interface IRegisterUser {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  firstName: string;
+  lastName: string;
+}
+
 const SignupForm = () => {
   const [image, setImage] = useState(null);
   const checkErr = (password: string, confirmPassword: string) => {
@@ -80,7 +88,7 @@ const SignupForm = () => {
             if (key !== 'confirmPassword') formData.append(key, values[key]);
             formData.append('image', image!);
           }
-          dispatch(signUpUser(values));
+          dispatch(signUpUser(formData as unknown as IRegisterUser));
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur }) => (
@@ -107,7 +115,7 @@ const SignupForm = () => {
                 label="First Name"
                 type="text"
                 placeholder="John"
-                name="firstname"
+                name="firstName"
                 value={values.firstName}
                 onChange={handleChange}
                 className="w-full"
@@ -116,7 +124,7 @@ const SignupForm = () => {
                 label="Last Name"
                 type="text"
                 placeholder="Doe"
-                name="lastname"
+                name="lastName"
                 value={values.lastName}
                 onChange={handleChange}
                 className="w-full"

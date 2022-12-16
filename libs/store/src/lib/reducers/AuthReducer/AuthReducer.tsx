@@ -39,7 +39,7 @@ export default (
       return {
         ...state,
         loading: false,
-        message: payload,
+        message: payload.response,
       };
     case AUTH_ERR:
       return { ...state, error: payload, loading: false };
@@ -49,7 +49,7 @@ export default (
       deleteCookie('userProfile');
       return {
         ...state,
-        msg: 'Logout user successfully.',
+        message: 'Logout user successfully.',
       };
     case CLEAR_MESSAGE:
       return {

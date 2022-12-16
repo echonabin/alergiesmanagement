@@ -29,7 +29,7 @@ const LoginForm = () => {
   }
   if (message) {
     toast(message, { type: 'success' });
-    router.push('/');
+    router.push('/dashboard');
     cleanUp(dispatch, cleanUp);
   }
   return (
