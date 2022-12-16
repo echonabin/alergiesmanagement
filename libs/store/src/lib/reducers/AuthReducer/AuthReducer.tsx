@@ -28,7 +28,7 @@ export default (
     case LOGIN_USER:
       setCookie('accessToken', payload.response.jwtToken);
       setCookie('refreshToken', payload.response.refreshToken.token);
-      setCookie('userProfile', JSON.stringify(payload.response.profile_url));
+      setCookie('userProfile', JSON.stringify(payload.response));
       return {
         ...state,
         user: payload,

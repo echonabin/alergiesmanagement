@@ -12,6 +12,9 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
+  images: {
+    domains: ['allergyfiles.s3.ap-south-1.amazonaws.com'],
+  },
 };
 
 module.exports = withNx(nextConfig);
