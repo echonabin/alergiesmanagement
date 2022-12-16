@@ -14,9 +14,26 @@ interface IRegisterUser {
   password: string;
 }
 
+interface ILoginReturn {
+  response: {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    profile_url: string;
+    jwtToken: string;
+    refreshToken: {
+      token: string;
+      expires: string;
+      is_active: boolean;
+    };
+  };
+}
+
 export const loginUser = async (data: ILoginUser) => {
-  const response = await publicAgent.post(signin, data);
-  return response.data;
+  console.log('been here');
+
+  await publicAgent.post<any>('/aserer/seees', data);
 };
 
 export const registerUser = async (data: IRegisterUser) => {

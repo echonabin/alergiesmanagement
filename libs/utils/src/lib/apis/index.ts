@@ -1,2 +1,2 @@
 export { getAllergies } from './allergiesApi';
-export { loginUser } from './userApi';
+export { loginUser, refreshToken, registerUser } from './userApi';
