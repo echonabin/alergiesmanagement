@@ -5,8 +5,8 @@ import { setCookie } from 'cookies-next';
 import { Oval } from 'react-loader-spinner';
 import { Button, Alert } from '..';
 import Input from '../Input/Input';
-import { privateAgent, useAuthData } from '@practitionermanagement/store';
-import { API_ENDPOINTS } from '@practitionermanagement/constants';
+// import { privateAgent, useAuthData } from '@practitionermanagement/store';
+// import { API_ENDPOINTS } from '@practitionermanagement/constants';
 
 const LoginForm = () => {
   const { host_url, base_url, auth } = API_ENDPOINTS;

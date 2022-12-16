@@ -31,18 +31,17 @@ interface ILoginReturn {
 }
 
 export const loginUser = async (data: ILoginUser) => {
-  console.log('been here');
-
-  await publicAgent.post<any>('/aserer/seees', data);
+  const response = await publicAgent.post(signin, data);
+  return response;
 };
 
 export const registerUser = async (data: IRegisterUser) => {
   const response = await publicAgent.post(signup, data);
-  return response.data;
+  return response;
 };
 
 export const refreshToken = async (token: string) => {
   const route = `${refresh}?token=${token}`;
   const response = await publicAgent.get(route);
-  return response.data;
+  return response;
 };
