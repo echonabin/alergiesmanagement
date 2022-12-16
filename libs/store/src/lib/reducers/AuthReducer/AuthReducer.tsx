@@ -4,6 +4,7 @@ import {
   AUTH_ERR,
   CLEAR_MESSAGE,
   SET_LOADING,
+  SIGNUP_USER,
 } from '../../types';
 import { setCookie, deleteCookie } from 'cookies-next';
 
@@ -33,6 +34,12 @@ export default (
         user: payload,
         message: 'Logged In',
         loading: false,
+      };
+    case SIGNUP_USER:
+      return {
+        ...state,
+        loading: false,
+        message: payload,
       };
     case AUTH_ERR:
       return { ...state, error: payload, loading: false };

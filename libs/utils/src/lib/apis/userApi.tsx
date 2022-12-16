@@ -8,7 +8,7 @@ interface ILoginUser {
 }
 
 interface IRegisterUser {
-  firstNam: string;
+  firstName: string;
   lastName: string;
   email: string;
   password: string;

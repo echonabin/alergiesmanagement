@@ -1,10 +1,22 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useState } from 'react';
 import { Formik, Form } from 'formik';
 import { Button, Alert } from '..';
 import { Oval } from 'react-loader-spinner';
 import { toast } from 'react-toastify';
-import router from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
 import Input from '../Input/Input';
+import { cleanUp } from '@alergiesmanagement/utils';
+import { clearAlert, signUpUser } from '@alergiesmanagement/store';
+import router from 'next/router';
+
+interface RootState {
+  AuthReducer: {
+    message: string;
+    error: { message: string; status: number };
+    loading: boolean;
+  };
+}
 
 const SignupForm = () => {
   const [image, setImage] = useState(null);
@@ -27,6 +39,19 @@ const SignupForm = () => {
     }
   };
 
+  const dispatch = useDispatch() as any;
+  const { error, message, loading } = useSelector(
+    (state: RootState) => state.AuthReducer
+  );
+  if (error) {
+    cleanUp(dispatch, clearAlert);
+    toast(error.message, { type: 'error' });
+  }
+  if (message) {
+    toast(message, { type: 'success' });
+    router.push('/login');
+    cleanUp(dispatch, cleanUp);
+  }
   return (
     <div>
       <Formik
@@ -34,8 +59,8 @@ const SignupForm = () => {
           email: '',
           password: '',
           confirmPassword: '',
-          firstname: '',
-          lastname: '',
+          firstName: '',
+          lastName: '',
         }}
         validate={(values) => {
           const errors = {} as { email: string };
@@ -48,47 +73,17 @@ const SignupForm = () => {
           }
           return errors;
         }}
-        onSubmit={async (values, { setSubmitting, resetForm }) => {
-          const id = toast.loading('Adding user...');
+        onSubmit={async (values) => {
           const formData = new FormData();
           for (const key in values) {
+            // @ts-ignore
             if (key !== 'confirmPassword') formData.append(key, values[key]);
             formData.append('image', image!);
           }
-          try {
-            const res = await privateAgent.post('/auth/register', formData);
-            toast.update(id, {
-              render: 'User Added',
-              autoClose: 4000,
-              type: 'success',
-              isLoading: false,
-            });
-            console.log(res.data);
-            resetForm();
-            setSubmitting(false);
-            router.push('/login');
-          } catch (error: any) {
-            console.log(error);
-            toast.update(id, {
-              render:
-                error.response.status === 400
-                  ? error.response.data.errors[0].message
-                  : error.message,
-              autoClose: 4000,
-              type: 'error',
-              isLoading: false,
-            });
-          }
+          dispatch(signUpUser(values));
         }}
       >
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          isSubmitting,
-        }) => (
+        {({ values, errors, touched, handleChange, handleBlur }) => (
           <Form className="space-y-6">
             {errors.email && touched.email && (
               <Alert type="error" content={errors.email} />
@@ -113,7 +108,7 @@ const SignupForm = () => {
                 type="text"
                 placeholder="John"
                 name="firstname"
-                value={values.firstname}
+                value={values.firstName}
                 onChange={handleChange}
                 className="w-full"
               />
@@ -122,7 +117,7 @@ const SignupForm = () => {
                 type="text"
                 placeholder="Doe"
                 name="lastname"
-                value={values.lastname}
+                value={values.lastName}
                 onChange={handleChange}
                 className="w-full"
               />
@@ -161,11 +156,11 @@ const SignupForm = () => {
               />
             </div>
             <Button
-              title={isSubmitting ? 'Creating Account' : 'Create Account'}
+              title={loading ? 'Creating Account' : 'Create Account'}
               varient="primary"
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
-              IconRight={isSubmitting ? Oval : null}
+              IconRight={loading ? Oval : null}
               className="w-full rounded-full py-3"
               type="submit"
             />

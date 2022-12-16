@@ -1,11 +1,10 @@
-import Head from 'next/head';
 import React from 'react';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Button } from '@alergiesmanagement/components';
+import { Button, SignupForm } from '@alergiesmanagement/components';
 import { withAuth } from '@alergiesmanagement/utils';
-import { LoginForm } from '@alergiesmanagement/components';
 
-const Login = () => {
+const Signup = () => {
   const router = useRouter();
   return (
     <>
@@ -14,12 +13,21 @@ const Login = () => {
       </Head>
       <div className="flex flex-col justify-center items-center h-screen">
         {/* Login Modal */}
-        <div className="border-[1px] border-gray-300 flex flex-col px-10 py-10 rounded-lg w-2/6 shadow">
+        <div className="border-[1px] border-gray-300 flex flex-col px-10 py-10 rounded-lg w-1/2 shadow">
           <p className="font-poppins font-medium text-3xl text-center text-gray-700">
-            Sign in
+            Create an account
+          </p>
+          <p className="text-center text-gray-500 font-poppins font-thin mt-3">
+            Already have an account?{' '}
+            <span
+              className="cursor-pointer underline hover:text-blue-500"
+              onClick={() => router.push('/login')}
+            >
+              Login
+            </span>
           </p>
           <div className="pt-8">
-            <LoginForm />
+            <SignupForm />
           </div>
           <div className="flex mt-6 items-center space-x-2 place-self-center">
             <span className="w-40 h-[1px] bg-gray-300"></span>
@@ -29,9 +37,9 @@ const Login = () => {
           <div className="mt-4 place-self-center w-full">
             <Button
               varient="secondary"
-              title="Create an account"
+              title="Login"
               className="rounded-full w-full"
-              onClick={() => router.push('/signup?signup=true')}
+              onClick={() => router.push('/login')}
             />
           </div>
         </div>
@@ -40,4 +48,4 @@ const Login = () => {
   );
 };
 
-export default withAuth(Login);
+export default withAuth(Signup);

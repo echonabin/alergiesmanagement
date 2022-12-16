@@ -17,15 +17,19 @@ interface ILoginUser {
 }
 
 interface IRegisterUser {
-  firstNam: string;
-  lastName: string;
   email: string;
   password: string;
+  confirmPassword: string;
+  firstName: string;
+  lastName: string;
 }
 
 export const signUpUser =
   (data: IRegisterUser) => async (dispatch: Dispatch) => {
     try {
+      dispatch({
+        type: SET_LOADING,
+      });
       const res = await registerUser(data);
       dispatch({
         type: SIGNUP_USER,

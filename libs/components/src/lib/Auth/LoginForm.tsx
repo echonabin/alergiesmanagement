@@ -30,6 +30,7 @@ const LoginForm = () => {
   if (message) {
     toast(message, { type: 'success' });
     router.push('/');
+    cleanUp(dispatch, cleanUp);
   }
   return (
     <div>
