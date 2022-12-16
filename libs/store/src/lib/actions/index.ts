@@ -1,1 +1,2 @@
-export { LoginUser, LogoutUser, SignUpUser } from './AuthActions/AuthActions';
+export { loginUser, logoutUser, signUpUser } from './AuthActions/AuthActions';
+export { clearAlert } from './ClearAction';

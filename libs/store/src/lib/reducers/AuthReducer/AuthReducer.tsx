@@ -1,9 +1,16 @@
-import { LOGIN_USER, LOGOUT_USER, AUTH_ERR, CLEAR_MESSAGE } from '../../types';
+import {
+  LOGIN_USER,
+  LOGOUT_USER,
+  AUTH_ERR,
+  CLEAR_MESSAGE,
+  SET_LOADING,
+} from '../../types';
 import { setCookie, deleteCookie } from 'cookies-next';
 
 const initialState = {
   message: '',
   error: '',
+  loading: false,
   user: '',
 };
 
@@ -12,17 +19,23 @@ export default (
   { type, payload }: { type: string; payload: any }
 ) => {
   switch (type) {
+    case SET_LOADING:
+      return {
+        ...state,
+        loading: true,
+      };
     case LOGIN_USER:
       setCookie('accessToken', payload.response.jwtToken);
       setCookie('refreshToken', payload.response.refreshToken.token);
-      setCookie('userProfile', payload.response.profileUrl);
+      setCookie('userProfile', JSON.stringify(payload.response.profile_url));
       return {
         ...state,
         user: payload,
-        msg: 'Logged In',
+        message: 'Logged In',
+        loading: false,
       };
     case AUTH_ERR:
-      return { ...state, error: 'Error in Auth' };
+      return { ...state, error: payload, loading: false };
     case LOGOUT_USER:
       deleteCookie('accessToken');
       deleteCookie('refreshToken');
@@ -33,6 +46,7 @@ export default (
       };
     case CLEAR_MESSAGE:
       return {
+        ...state,
         message: '',
         error: '',
       };

@@ -3,7 +3,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { Button } from '@alergiesmanagement/components';
 // import { withAuth } from '@alergiesmanagement/utils';
-// import { LoginForm } from '@alergiesmanagement/components';
+import { LoginForm } from '@alergiesmanagement/components';
 
 const Login = () => {
   const router = useRouter();
@@ -19,8 +19,7 @@ const Login = () => {
             Sign in
           </p>
           <div className="pt-8">
-            {/* <LoginForm /> */}
-            <h1>Login form here</h1>
+            <LoginForm />
           </div>
           <div className="flex mt-6 items-center space-x-2 place-self-center">
             <span className="w-40 h-[1px] bg-gray-300"></span>

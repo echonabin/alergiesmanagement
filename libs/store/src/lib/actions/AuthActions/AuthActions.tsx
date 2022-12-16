@@ -1,6 +1,15 @@
 import { Dispatch } from 'redux';
-import { loginUser, registerUser } from '@alergiesmanagement/utils';
-import { AUTH_ERR, LOGIN_USER, LOGOUT_USER, SIGNUP_USER } from '../../types';
+import {
+  loginUser as LoginUser,
+  registerUser,
+} from '@alergiesmanagement/utils';
+import {
+  AUTH_ERR,
+  LOGIN_USER,
+  LOGOUT_USER,
+  SIGNUP_USER,
+  SET_LOADING,
+} from '../../types';
 
 interface ILoginUser {
   email: string;
@@ -14,7 +23,7 @@ interface IRegisterUser {
   password: string;
 }
 
-export const SignUpUser =
+export const signUpUser =
   (data: IRegisterUser) => async (dispatch: Dispatch) => {
     try {
       const res = await registerUser(data);
@@ -22,33 +31,33 @@ export const SignUpUser =
         type: SIGNUP_USER,
         payload: res.data,
       });
-    } catch (error) {
-      console.log(error);
+    } catch (err: any) {
       dispatch({
         type: AUTH_ERR,
-        payload: 'Error',
+        payload: err.response.data.errors[0],
       });
     }
   };
 
-export const LoginUser = (data: ILoginUser) => async (dispatch: Dispatch) => {
+export const loginUser = (data: ILoginUser) => async (dispatch: Dispatch) => {
   try {
-    const res = await loginUser(data);
+    dispatch({
+      type: SET_LOADING,
+    });
+    const res = await LoginUser(data);
     dispatch({
       type: LOGIN_USER,
       payload: res.data,
     });
-  } catch (err) {
-    console.log(err);
+  } catch (err: any) {
     dispatch({
       type: AUTH_ERR,
-      // Change payload to server response
-      payload: 'Error',
+      payload: err.response.data.errors[0],
     });
   }
 };
 
-export const LogoutUser = () => async (dispatch: Dispatch) => {
+export const logoutUser = () => async (dispatch: Dispatch) => {
   try {
     dispatch({
       type: LOGOUT_USER,

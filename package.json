@@ -19,6 +19,7 @@
   "private": true,
   "dependencies": {
     "@aws-sdk/client-s3": "^3.231.0",
+    "@reduxjs/toolkit": "^1.9.1",
     "@types/knex": "^0.16.1",
     "bcryptjs": "^2.4.3",
     "cookies-next": "^2.1.1",

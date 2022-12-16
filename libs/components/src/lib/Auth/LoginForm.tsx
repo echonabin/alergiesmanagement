@@ -1,18 +1,36 @@
 import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Formik, Form } from 'formik';
-import { setCookie } from 'cookies-next';
 import { Oval } from 'react-loader-spinner';
 import { Button, Alert } from '..';
 import Input from '../Input/Input';
-// import { privateAgent, useAuthData } from '@practitionermanagement/store';
-// import { API_ENDPOINTS } from '@practitionermanagement/constants';
+import { clearAlert, loginUser } from '@alergiesmanagement/store';
+import { cleanUp } from '@alergiesmanagement/utils';
+
+interface RootState {
+  AuthReducer: {
+    message: string;
+    error: { message: string; status: number };
+    loading: boolean;
+  };
+}
 
 const LoginForm = () => {
-  const { host_url, base_url, auth } = API_ENDPOINTS;
-  const { loginUser, setError, error } = useAuthData();
   const router = useRouter();
-  console.log(error);
+  const dispatch = useDispatch() as any;
+  const { error, message, loading } = useSelector(
+    (state: RootState) => state.AuthReducer
+  );
+
+  if (error) {
+    toast(error.message, { type: 'error' });
+    cleanUp(dispatch, clearAlert);
+  }
+  if (message) {
+    toast(message, { type: 'success' });
+    router.push('/');
+  }
   return (
     <div>
       <Formik
@@ -28,39 +46,9 @@ const LoginForm = () => {
           }
           return errors;
         }}
-        onSubmit={async (values, { setSubmitting }) => {
+        onSubmit={async (values) => {
           const { email, password } = values;
-          const id = toast.loading('Loading...');
-          try {
-            const res = await privateAgent.post(
-              `${host_url}${base_url}${auth.login}`,
-              { email, password }
-            );
-            toast.update(id, {
-              render: 'Login Successful',
-              autoClose: 4000,
-              type: 'success',
-              isLoading: false,
-            });
-            setSubmitting(false);
-            setCookie('accessToken', res.data.jwtToken);
-            setCookie('refreshToken', res.data.refreshToken.token);
-            setCookie('userProfile', res.data.profileUrl);
-            router.push('/dashboard');
-            loginUser(res.data);
-          } catch (error: any) {
-            console.log(error);
-            toast.update(id, {
-              render:
-                error.response.status === 400
-                  ? error.response.data.errors[0].message
-                  : error.message,
-              autoClose: 4000,
-              type: 'error',
-              isLoading: false,
-            });
-            setError(error.response.data.message);
-          }
+          dispatch(loginUser({ email, password }));
         }}
       >
         {({ values, errors, touched, handleChange, isSubmitting }) => (
@@ -94,7 +82,7 @@ const LoginForm = () => {
               varient="primary"
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
-              IconRight={isSubmitting ? Oval : null}
+              IconRight={loading ? Oval : null}
               className="w-full rounded-full py-3"
               type="submit"
             />
