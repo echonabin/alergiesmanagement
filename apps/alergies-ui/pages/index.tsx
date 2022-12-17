@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@alergiesmanagement/components';
+import { withAuth } from '@alergiesmanagement/utils';
 const Index = () => {
   return (
     <div>
@@ -8,4 +8,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default withAuth(Index);

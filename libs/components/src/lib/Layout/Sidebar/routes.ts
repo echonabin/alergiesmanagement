@@ -8,7 +8,7 @@ export const routes = [
   },
   {
     name: 'List Allergies',
-    path: '/allergies/list',
+    path: '/allergy/list',
     icon: FiUser,
   },
   {

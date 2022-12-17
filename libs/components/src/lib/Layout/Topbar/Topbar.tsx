@@ -9,7 +9,9 @@ const Topbar = () => {
   // const user_profile = JSON.parse(profileUrl);
   useEffect(() => {
     const user_object = userProfile && JSON.parse(userProfile);
-    setUserImage(user_object.profile_url);
+    if (user_object) {
+      setUserImage(user_object.profile_url);
+    }
   }, []);
   return (
     <div className="w-full pt-4 flex items-center justify-between bg-white sticky top-0">
