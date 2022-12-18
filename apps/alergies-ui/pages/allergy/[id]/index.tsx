@@ -1,67 +1,79 @@
 import React, { useEffect } from 'react';
-import Head from 'next/head';
-import { withAuth } from '@practitionermanagement/utils';
-import {
-  privateAgent,
-  usePractitionerData,
-} from '@practitionermanagement/store';
-import { useRouter } from 'next/router';
-import { Loading } from '@practitionermanagement/components';
+import Image from 'next/image';
 import moment from 'moment';
+import Head from 'next/head';
+import { withAuth } from '@alergiesmanagement/utils';
+import { getSingleAllergyAction } from '@alergiesmanagement/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import { Loading } from '@alergiesmanagement/components';
 import { FiToggleLeft, FiToggleRight } from 'react-icons/fi';
 
-const SinglePractitioner = () => {
-  const {
-    getSinglePractitioner,
-    loading,
-    setLoading,
-    setError,
-    singlePractitioner,
-  } = usePractitionerData();
+type SingleAllergy = {
+  id: number;
+  name: string;
+  symptoms: string;
+  severity: string;
+  treatments: string;
+  notes: string;
+  allergy_image: string;
+  is_active: boolean;
+  created_by: number;
+  updated_by: any;
+  deleted_by: any;
+  created_at: string;
+  updated_at: string;
+};
+
+interface RootState {
+  AllergyReducer: {
+    singleAllergy: SingleAllergy;
+    loading: boolean;
+    message: string;
+    error: { message: string; status: number };
+  };
+}
+
+const SingleAllergy = () => {
+  const dispatch = useDispatch() as any;
+  const { loading, singleAllergy } = useSelector(
+    (state: RootState) => state.AllergyReducer
+  );
   const { id } = useRouter().query;
   useEffect(() => {
     const fetchData = async () => {
       if (id !== undefined) {
-        try {
-          const res = await privateAgent.get(`/practitioner/${id}`);
-          getSinglePractitioner(res.data.practitioner);
-          setLoading();
-        } catch (error) {
-          setError(error.message);
-          setLoading();
-        }
+        dispatch(getSingleAllergyAction(id as string));
       }
     };
     fetchData();
   }, [id]);
-  console.log(singlePractitioner);
+  console.log(singleAllergy);
 
   const {
-    fullname,
-    email,
-    contact,
-    address,
-    profileImage,
-    dob,
-    createdAt,
-    workingDays,
-    startTime,
-    endTime,
-    isIcu,
-  } = singlePractitioner;
+    allergy_image,
+    created_at,
+    is_active,
+    name,
+    notes,
+    severity,
+    symptoms,
+    treatments,
+  } = singleAllergy;
+
   return (
     <>
       <Head>
-        <title>{fullname}</title>
+        <title>{name} - Allergy</title>
       </Head>
-      {loading || !profileImage ? (
+      {loading || !allergy_image ? (
         <Loading />
       ) : (
         <div>
           <div className="w-full">
             <div className="grid grid-cols-12 w-full items-center space-x-4">
               <h1 className="text-3xl font-semibold font-poppins text-gray-700 col-span-3">
-                Practitioner Profile
+                Allergy Detail
               </h1>
               <div className="h-[1px] bg-gray-200 w-full col-span-9" />
             </div>
@@ -69,49 +81,46 @@ const SinglePractitioner = () => {
               <div className="px-4 py-4 shadow-2xl grid grid-cols-12 w-full divide-x-[1px] items-center">
                 {/* profile */}
                 <div className="col-span-2 flex flex-col justify-center space-y-2 place-self-center mt-10">
-                  <img
-                    src={profileImage.replace(
-                      'practitionerbucket1.practitionerbucket1',
-                      'practitionerbucket1'
-                    )}
+                  <Image
+                    src={allergy_image}
                     width={80}
                     height={80}
                     className="rounded-full"
                     alt=""
                   />
-                  <p className="font-semibold text-lg">{fullname}</p>
+                  <p className="font-semibold text-lg">{name}</p>
                 </div>
                 <div className="col-span-10 grid row-span-3 pl-6">
-                  <p className="text-gray-500 pb-2">Personal Details</p>
+                  <p className="text-gray-500 pb-2">Allergy Details</p>
                   <div className="flex space-x-4 pb-2 border-b-[1px]">
                     <p className="font-poppins font-medium text-gray-400">
-                      Email:{' '}
+                      Symptoms:{' '}
                       <span className="text-gray-700 font-normal pl-3">
-                        {email}
+                        {symptoms}
                       </span>
                     </p>
                     <p className="font-poppins font-medium text-gray-400">
-                      Contact:{' '}
+                      Severity:{' '}
                       <span className="text-gray-700 font-normal pl-3">
-                        {contact}
+                        {severity}
                       </span>
                     </p>
                     <p className="font-poppins font-medium text-gray-400">
-                      Address:{' '}
+                      Treatments:{' '}
                       <span className="text-gray-700 font-normal pl-3">
-                        {address}
+                        {treatments}
                       </span>
                     </p>
                     <p className="font-poppins font-medium text-gray-400">
-                      Is ICU:{' '}
+                      Is Active:{' '}
                       <span className="text-gray-700 font-normal pl-3">
-                        {isIcu ? 'Yes' : 'No'}
+                        {is_active ? 'Yes' : 'No'}
                       </span>
                     </p>
                     <div className="font-poppins font-medium text-gray-400 flex items-center">
-                      ICU:{' '}
+                      Active:{' '}
                       <span className="text-gray-700 font-normal pl-3 text-3xl">
-                        {isIcu ? (
+                        {is_active ? (
                           <FiToggleRight className="text-green-400" />
                         ) : (
                           <FiToggleLeft className="text-red-400" />
@@ -122,36 +131,15 @@ const SinglePractitioner = () => {
                   <p className="text-gray-500 pb-2">More Info</p>
                   <div className="flex space-x-4 pb-2 border-b-[1px]">
                     <p className="font-poppins font-medium text-gray-400">
-                      Date of Birth:{' '}
-                      <span className="text-gray-700 font-normal pl-3">
-                        {moment(dob).format('MMMM Do YYYY')}
-                      </span>
+                      Notes:{' '}
+                      <text className="text-gray-700 font-normal pl-3">
+                        {notes}
+                      </text>
                     </p>
                     <p className="font-poppins font-medium text-gray-400">
                       Registered:{' '}
                       <span className="text-gray-700 font-normal pl-3">
-                        {moment(createdAt).startOf('day').fromNow()};
-                      </span>
-                    </p>
-                  </div>
-                  <p className="text-gray-500 pb-2">Working Info</p>
-                  <div className="flex space-x-4 border-b-[1px] pb-2">
-                    <p className="font-poppins font-medium text-gray-400">
-                      Working Days:{' '}
-                      <span className="text-gray-700 font-normal pl-3">
-                        {workingDays}
-                      </span>
-                    </p>
-                    <p className="font-poppins font-medium text-gray-400">
-                      Start Time:{' '}
-                      <span className="text-gray-700 font-normal pl-3">
-                        {startTime}
-                      </span>
-                    </p>
-                    <p className="font-poppins font-medium text-gray-400">
-                      End time:{' '}
-                      <span className="text-gray-700 font-normal pl-3">
-                        {endTime}
+                        {moment(created_at).startOf('day').fromNow()};
                       </span>
                     </p>
                   </div>
@@ -165,4 +153,4 @@ const SinglePractitioner = () => {
   );
 };
 
-export default withAuth(SinglePractitioner);
+export default withAuth(SingleAllergy);

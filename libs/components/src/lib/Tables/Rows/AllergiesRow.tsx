@@ -129,7 +129,7 @@ const AllergyRows = (props: AllergyProps) => {
                   onClick={() =>
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-ignore
-                    router.push(`/practitioner/${c.row.original._id}`)
+                    router.push(`/allergy/${c.row.original.id}`)
                   }
                 >
                   {c.render('Cell')}
