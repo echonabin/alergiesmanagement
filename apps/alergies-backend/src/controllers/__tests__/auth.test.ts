@@ -73,7 +73,15 @@ describe(`Auth testing....`, () => {
   });
 
   test(`Should return 400 without token ${base_url + refresh}`, async () => {
-    const response = await retriveData('/auth/refresh-token');
+    const response = await retriveData(refresh);
+    expect(response.statusCode).toBe(400);
+  });
+
+  test(`Should return 400 with invalid-token ${
+    base_url + refresh
+  }`, async () => {
+    const route = `${refresh}?token="123445"`;
+    const response = await retriveData(route);
     expect(response.statusCode).toBe(400);
   });
 
