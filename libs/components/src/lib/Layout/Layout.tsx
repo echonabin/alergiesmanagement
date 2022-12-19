@@ -1,3 +1,4 @@
+import * as React from 'react';
 import Sidebar from './Sidebar';
 import Topbar from './Topbar/Topbar';
 
@@ -7,7 +8,7 @@ interface LayoutProps {
 
 const Layout = (props: LayoutProps) => {
   return (
-    <div className="flex">
+    <div className="flex" id="layout_page">
       <Sidebar />
       <div className="w-full px-9 py-2 space-y-8 pl-[24%]">
         <Topbar />

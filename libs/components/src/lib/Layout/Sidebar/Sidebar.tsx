@@ -19,7 +19,10 @@ const Sidebar = () => {
     return false;
   };
   return (
-    <div className="w-1/5 bg-white shadow-xl border-r-[1px] max-h-screen min-h-screen px-6 py-6 flex flex-col fixed">
+    <div
+      className="w-1/5 bg-white shadow-xl border-r-[1px] max-h-screen min-h-screen px-6 py-6 flex flex-col fixed"
+      id="Sidebar"
+    >
       <div className="max-w-[10rem]">
         <Image alt="logo" className="" src={logo} />
       </div>
@@ -31,6 +34,7 @@ const Sidebar = () => {
             return (
               <div
                 key={id}
+                id={`${route.name.replace(' ', '')}_${id}`}
                 className={`flex items-center space-x-2 cursor-pointer ${
                   isActive(route.path)
                     ? 'text-blue-500 hover:text-blue-400'
