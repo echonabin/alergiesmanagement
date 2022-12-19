@@ -1,4 +1,5 @@
 import { getLoginPage, getSignUpPage } from '../support/app.po';
+import { email, password } from '../fixtures/auth.json';
 
 describe('Login portion and login screen', () => {
   beforeEach(() => cy.visit('/'));
@@ -17,16 +18,14 @@ describe('Login portion and login screen', () => {
       .should('have.class', 'Toastify__toast--error');
   });
 
-  const email = `${Math.random() * 200}user@gmail.com`;
-
   it('should create user successfully', () => {
     getLoginPage().get('#Signup_button').click();
     cy.url().should('include', '/signup');
     getSignUpPage().get('#Email').type(email);
     getSignUpPage().get('#FirstName').type('John');
     getSignUpPage().get('#LastName').type('Doe');
-    getSignUpPage().get('#Password').type('@@Testing11');
-    getSignUpPage().get('#ConfirmPassword').type('@@Testing11');
+    getSignUpPage().get('#Password').type(password);
+    getSignUpPage().get('#ConfirmPassword').type(password);
     getSignUpPage().get('#Signup_button').click();
     getSignUpPage()
       .get('.Toastify__toast')
@@ -35,7 +34,7 @@ describe('Login portion and login screen', () => {
 
   it('should return and login user successfully', () => {
     getLoginPage().get('#Email').type(email);
-    getLoginPage().get('#Password').type('@@Testing11');
+    getLoginPage().get('#Password').type(password);
     getLoginPage().get('#Login_button').click();
     getLoginPage()
       .get('.Toastify__toast')
