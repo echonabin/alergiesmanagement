@@ -43,11 +43,13 @@ export const createAllergyAction =
         type: CREATE_ALLERGY,
         payload: res.data,
       });
+      return res.data;
     } catch (err: any) {
       dispatch({
         type: ALLERGY_ERR,
         payload: err.response.data.errors[0],
       });
+      return err.response.data.errors[0];
     }
   };
 
@@ -101,11 +103,13 @@ export const updateAllergyAction =
         type: UPDATE_ALLERGY,
         payload: res.data,
       });
+      return res.data;
     } catch (err: any) {
       dispatch({
         type: ALLERGY_ERR,
         payload: err.response.data.errors[0],
       });
+      return err.response.data.errors[0];
     }
   };
 

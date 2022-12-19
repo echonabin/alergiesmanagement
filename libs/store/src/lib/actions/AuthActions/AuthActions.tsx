@@ -53,11 +53,13 @@ export const loginUser = (data: ILoginUser) => async (dispatch: Dispatch) => {
       type: LOGIN_USER,
       payload: res.data,
     });
+    return res.data;
   } catch (err: any) {
     dispatch({
       type: AUTH_ERR,
       payload: err.response.data.errors[0],
     });
+    return err.response.data.errors[0];
   }
 };
 

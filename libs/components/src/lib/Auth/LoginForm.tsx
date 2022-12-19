@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -6,7 +7,7 @@ import { Oval } from 'react-loader-spinner';
 import { Button, Alert } from '..';
 import Input from '../Input/Input';
 import { clearAlert, loginUser } from '@alergiesmanagement/store';
-import { cleanUp } from '@alergiesmanagement/utils';
+import { createAlert } from '@alergiesmanagement/utils';
 
 interface RootState {
   AuthReducer: {
@@ -23,15 +24,25 @@ const LoginForm = () => {
     (state: RootState) => state.AuthReducer
   );
 
-  if (error) {
-    toast(error.message, { type: 'error' });
-    cleanUp(dispatch, clearAlert);
-  }
-  if (message) {
-    toast(message, { type: 'success' });
-    router.push('/dashboard');
-    cleanUp(dispatch, cleanUp);
-  }
+  useEffect(() => {
+    if (loading) {
+      const timer = setTimeout(() => dispatch(clearAlert), 3000);
+      clearTimeout(timer);
+    }
+  }, [error.message, message, loading]);
+
+  const onSubmitHandler = async (values: {
+    email: string;
+    password: string;
+  }) => {
+    const id = toast.loading('Loading...');
+    const { email, password } = values;
+    const res = await dispatch(loginUser({ email, password }));
+    createAlert(id, res);
+    if (res.status === 200) {
+      router.push('/dashboard');
+    }
+  };
   return (
     <div>
       <Formik
@@ -47,10 +58,7 @@ const LoginForm = () => {
           }
           return errors;
         }}
-        onSubmit={async (values) => {
-          const { email, password } = values;
-          dispatch(loginUser({ email, password }));
-        }}
+        onSubmit={async (values) => onSubmitHandler(values)}
       >
         {({ values, errors, touched, handleChange, isSubmitting }) => (
           <Form className="space-y-6">

@@ -45,7 +45,7 @@ export const loginUserController = async (
       throw next(new RequestValidationError(error));
     }
     const response = await loginUserService(req.body);
-    res.status(200).json({ response });
+    res.status(200).json({ message: 'Login Success', status: 200, response });
   } catch (error) {
     next(error);
   }

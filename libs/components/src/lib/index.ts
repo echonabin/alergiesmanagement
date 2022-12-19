@@ -7,4 +7,6 @@ export { default as Loader } from './Loader';
 export { default as DeleteModal } from './Modal';
 export { default as Table } from './Tables';
 export { default as Loading } from './Loader';
+export { default as AddAllergyForm } from './Forms/AddAllergyForm';
+export { default as UpdateAllergyForm } from './Forms/EditAllergyForm';
 export { LoginForm, SignupForm } from './Auth';
