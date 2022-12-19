@@ -12,13 +12,13 @@ const Table = ({ columns, data }: any) => {
   // Render the UI for your table
   return (
     <table {...getTableProps()} className="w-full">
-      <thead>
+      <thead className="">
         {headerGroups.map((headerGroup, id) => (
           <tr {...headerGroup.getHeaderGroupProps()} key={id}>
             {headerGroup.headers.map((column, id) => (
               <th
                 {...column.getHeaderProps()}
-                className="py-3 rounded-md"
+                className="py-3 text-left"
                 key={id}
               >
                 {column.render('Header')}

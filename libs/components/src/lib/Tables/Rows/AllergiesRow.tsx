@@ -45,7 +45,7 @@ const AllergyRows = (props: AllergyProps) => {
   const renderProfile = (cell: Cell) => {
     if (cell.column.Header === 'Image') {
       return (
-        <div className="flex items-center space-x-2 ml-4">
+        <div className="flex">
           <img
             src={cell.value}
             alt="profile"
@@ -54,6 +54,7 @@ const AllergyRows = (props: AllergyProps) => {
         </div>
       );
     }
+    return;
   };
 
   // const renderToggle = (cell: Cell) => {
@@ -86,8 +87,8 @@ const AllergyRows = (props: AllergyProps) => {
 
   const renderAction = (cell: Cell) => {
     return (
-      <div className="">
-        <td>
+      <div className="flex">
+        <div>
           <FiEdit
             className="text-blue-500 text-xl cursor-pointer hover:scale-105 transition-all ease-linear duration-200"
             onClick={() =>
@@ -96,8 +97,8 @@ const AllergyRows = (props: AllergyProps) => {
               router.push(`/allergy/edit/${cell.row.original.id}`)
             }
           />
-        </td>
-        <td>
+        </div>
+        <div>
           <FiTrash
             className="text-red-500 text-xl cursor-pointer hover:scale-105 transition-all ease-linear duration-200"
             onClick={() => {
@@ -107,7 +108,7 @@ const AllergyRows = (props: AllergyProps) => {
               setCurrentSelected(cell.row.original.id);
             }}
           />
-        </td>
+        </div>
       </div>
     );
   };
@@ -119,7 +120,7 @@ const AllergyRows = (props: AllergyProps) => {
           <>
             <td
               {...c.getCellProps()}
-              className="text-center border-b-[1px] py-3 text-gray-700 font-poppins"
+              className="text-left border-b-[1px] py-3 text-gray-700 font-poppins"
               key={i}
             >
               {c.column.Header === 'Image' ? (
