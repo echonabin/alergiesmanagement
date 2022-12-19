@@ -5,10 +5,11 @@ interface AlertProps {
   type: 'success' | 'error' | 'warning';
   className?: string;
   Icon?: IconType;
+  id?: string;
 }
 
 const Alert = (props: AlertProps) => {
-  const { content, type, className, Icon } = props;
+  const { content, type, className, Icon, ...rest } = props;
   const baseStyle = `border-l-4 px-3 py-3 font-poppins ${className}`;
   const styles = {
     success: 'bg-green-100 border-l-4 border-green-400 text-green-700',
@@ -16,7 +17,7 @@ const Alert = (props: AlertProps) => {
     warning: 'bg-yellow-100 border-yellow-400 text-yellow-700',
   };
   return (
-    <div className={baseStyle + styles[type]}>
+    <div className={baseStyle + styles[type]} {...rest}>
       {Icon && <Icon className="mr-3 text-white" />}
       {content}
     </div>

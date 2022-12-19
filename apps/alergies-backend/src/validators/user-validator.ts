@@ -19,7 +19,7 @@ export const AuthValidator = {
         .required()
         .min(8)
         .max(20),
-      profileUrl: Joi.string(),
+      profileUrl: Joi.string().optional(),
     });
 
     return schema.validate(data);

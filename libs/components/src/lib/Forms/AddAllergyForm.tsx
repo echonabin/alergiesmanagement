@@ -43,7 +43,7 @@ const AddAllergyForm = () => {
     }
   }, [error.message, message, loading]);
 
-  const onSubmitHandler = async (values: IAllergy) => {
+  async function onSubmitHandler<T>(values: IAllergy, resetForm: T) {
     const id = toast.loading('Adding Allergy...');
     const formData = new FormData() as any;
     for (const key in values) {
@@ -53,9 +53,14 @@ const AddAllergyForm = () => {
       formData.append('image', image!);
     }
     const res = await dispatch(createAllergyAction(formData));
-    console.log(res);
     createAlert(id, res);
-  };
+    if (res.status !== 400 || res.status !== 500) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      resetForm();
+      setImage(null);
+    }
+  }
 
   return (
     <div>
@@ -67,7 +72,9 @@ const AddAllergyForm = () => {
           notes: '',
           severity: '',
         }}
-        onSubmit={async (values) => onSubmitHandler(values)}
+        onSubmit={(values, { resetForm }) =>
+          onSubmitHandler<typeof resetForm>(values, resetForm)
+        }
       >
         {({ values, handleChange, isSubmitting }) => (
           <Form className="space-y-6">

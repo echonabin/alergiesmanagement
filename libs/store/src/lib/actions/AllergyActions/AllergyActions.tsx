@@ -39,12 +39,15 @@ export const createAllergyAction =
         type: SET_LOADING,
       });
       const res = await createAllergy(data);
+      console.log('here', res);
+
       dispatch({
         type: CREATE_ALLERGY,
         payload: res.data,
       });
       return res.data;
     } catch (err: any) {
+      console.log('here', err);
       dispatch({
         type: ALLERGY_ERR,
         payload: err.response.data.errors[0],

@@ -28,13 +28,8 @@ export default (
         loading: true,
       };
     case CREATE_ALLERGY: {
-      const newData = [...state.allergies.response.items, payload.response[0]];
       return {
         ...state,
-        allergies: {
-          ...state.allergies,
-          response: { ...state.allergies.response, items: newData },
-        },
         message: payload.message,
         loading: false,
       };

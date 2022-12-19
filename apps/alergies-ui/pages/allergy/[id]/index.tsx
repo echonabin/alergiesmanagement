@@ -83,9 +83,9 @@ const SingleAllergy = () => {
                 <div className="col-span-2 flex flex-col justify-center space-y-2 place-self-center mt-10">
                   <Image
                     src={allergy_image}
-                    width={80}
-                    height={80}
-                    className="rounded-full"
+                    width={400}
+                    height={400}
+                    className="pr-3"
                     alt=""
                   />
                   <p className="font-semibold text-lg">{name}</p>

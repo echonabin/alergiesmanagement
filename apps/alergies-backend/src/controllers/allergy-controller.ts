@@ -34,7 +34,7 @@ export const createAllergyController = async (
   const data = {
     ...req.body,
     createdBy: req.auth.account.user_id,
-    allergyImage: req.files[0].location,
+    allergyImage: req.files ? req.files[0].location : '',
   };
   const response = await createAllergyService(data);
   apiResponse({ response, res, next, statusCode: 201 });
@@ -80,8 +80,10 @@ export const updateAllergyController = async (
       ...req.body,
     };
 
-    if (req.files.length) {
-      Object.assign(data, { allergyImage: req.files[0].location });
+    if (req.files) {
+      Object.assign(data, {
+        allergyImage: req.files ? req.files[0].location : '',
+      });
     }
 
     const response = await updateAllergyService(id, data, user_id.toString());

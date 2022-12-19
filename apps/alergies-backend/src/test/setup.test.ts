@@ -26,7 +26,6 @@ global.signin = async () => {
     lastName: 'Thapa',
     email: 'echonabin@gmail.com',
     password: '@@Something1',
-    profileUrl: 'http://unsplash.com/eefd',
   };
 
   await submitData(data, auth.signup);
