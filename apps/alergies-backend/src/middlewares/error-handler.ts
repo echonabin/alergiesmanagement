@@ -25,16 +25,16 @@ export const errorHandler = async (
 ) => {
   const errorModel = db<IError>('errorlogs');
 
-  const insertIntoDb = async () => {
-    const { user_id } = req.auth.account;
-    if (user_id) {
-      await errorModel.insert({
-        description: JSON.stringify(err),
-        error_user: user_id,
-      });
-    }
-    return;
-  };
+  // const insertIntoDb = async () => {
+  //   const { user_id } = req.auth.account;
+  //   if (user_id) {
+  //     await errorModel.insert({
+  //       description: JSON.stringify(err),
+  //       error_user: user_id,
+  //     });
+  //   }
+  //   return;
+  // };
 
   if (err instanceof CustomError) {
     return res.status(err.statusCode).send({ errors: err.serializeErrors() });
@@ -44,7 +44,7 @@ export const errorHandler = async (
     return res.status(401).send({ errors: [{ message: err.message }] });
   }
 
-  await insertIntoDb();
+  // await insertIntoDb();
   console.log(err);
   res.status(400).send({
     errors: [{ message: 'Something went wrong on the server!!' }],

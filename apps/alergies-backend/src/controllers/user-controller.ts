@@ -23,7 +23,7 @@ export const createUserController = async (
       throw next(new RequestValidationError(error));
     }
     const finalData = {
-      profileUrl: req.files[0].location,
+      profileUrl: req.files ? req.files[0].location : null,
       ...req.body,
     };
     const response = await createUserService(finalData);
