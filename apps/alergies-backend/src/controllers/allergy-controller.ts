@@ -18,6 +18,7 @@ interface ExtendedReqObj extends Request {
       user_id: number;
     };
   };
+  files: { location: string }[];
 }
 
 export const createAllergyController = async (
@@ -33,6 +34,7 @@ export const createAllergyController = async (
   const data = {
     ...req.body,
     createdBy: req.auth.account.user_id,
+    allergyImage: req.files[0].location,
   };
   const response = await createAllergyService(data);
   apiResponse({ response, res, next, statusCode: 201 });
@@ -74,11 +76,15 @@ export const updateAllergyController = async (
     return next(new RequestValidationError(error));
   } else {
     const { id } = req.params;
-    const response = await updateAllergyService(
-      id,
-      req.body,
-      user_id.toString()
-    );
+    const data = {
+      ...req.body,
+    };
+
+    if (req.files.length) {
+      Object.assign(data, { allergyImage: req.files[0].location });
+    }
+
+    const response = await updateAllergyService(id, data, user_id.toString());
     apiResponse({ response, res, next });
   }
 };

@@ -10,13 +10,19 @@ import {
   updateAllergyController,
 } from '../controllers/allergy-controller';
 import { authorize } from '../middlewares/authorization';
+import { upload } from '../configs/multer-config';
 
 const router = express.Router();
 const { allergies } = API_ENDPOINTS;
 
 // @Method: POST
 // @Path: /api/allergy
-router.post(allergies.create, authorize(), createAllergyController);
+router.post(
+  allergies.create,
+  authorize(),
+  upload.array('image'),
+  createAllergyController
+);
 
 // @Method: GET
 // @Path: /api/allergies
@@ -28,7 +34,12 @@ router.get(allergies.getOne, authorize(), getSingleAllergyController);
 
 // @Method: PUT
 // @Path: /api/allergy/{id}
-router.put(allergies.update, authorize(), updateAllergyController);
+router.put(
+  allergies.update,
+  authorize(),
+  upload.array('image'),
+  updateAllergyController
+);
 
 // @Method: DELETE
 // @Path: /api/allergy/{id}

@@ -1,7 +1,11 @@
 import React from 'react';
-
+import { withAuth } from '@alergiesmanagement/utils';
 const Index = () => {
-  return <div className="bg-[#f4a261]">something</div>;
+  return (
+    <div>
+      <div>Landing Page</div>;
+    </div>
+  );
 };
 
-export default Index;
+export default withAuth(Index);
