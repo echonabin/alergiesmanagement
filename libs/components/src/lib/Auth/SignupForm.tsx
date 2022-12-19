@@ -6,7 +6,7 @@ import { Oval } from 'react-loader-spinner';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import Input from '../Input/Input';
-import { cleanUp } from '@alergiesmanagement/utils';
+import { cleanUp, createAlert } from '@alergiesmanagement/utils';
 import { clearAlert, signUpUser } from '@alergiesmanagement/store';
 import router from 'next/router';
 
@@ -51,14 +51,24 @@ const SignupForm = () => {
   const { error, message, loading } = useSelector(
     (state: RootState) => state.AuthReducer
   );
-  if (error) {
-    cleanUp(dispatch, clearAlert);
-    toast(error.message, { type: 'error' });
-  }
-  if (message) {
-    toast(message, { type: 'success' });
-    router.push('/login');
-    cleanUp(dispatch, cleanUp);
+  async function onSubmitHandler<T>(values: IRegisterUser, resetForm: T) {
+    const id = toast.loading('Adding User...');
+    const formData = new FormData();
+    for (const key in values) {
+      // @ts-ignore
+      if (key !== 'confirmPassword') formData.append(key, values[key]);
+      if (image !== null) formData.append('image', image!);
+    }
+    const res = await dispatch(
+      signUpUser(formData as unknown as IRegisterUser)
+    );
+    createAlert(id, res);
+    if (res.status !== 400 || res.status !== 500) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      resetForm();
+      setImage(null);
+    }
   }
   return (
     <div>
@@ -81,15 +91,9 @@ const SignupForm = () => {
           }
           return errors;
         }}
-        onSubmit={async (values) => {
-          const formData = new FormData();
-          for (const key in values) {
-            // @ts-ignore
-            if (key !== 'confirmPassword') formData.append(key, values[key]);
-            formData.append('image', image!);
-          }
-          dispatch(signUpUser(formData as unknown as IRegisterUser));
-        }}
+        onSubmit={async (values, { resetForm }) =>
+          onSubmitHandler(values, resetForm)
+        }
       >
         {({ values, errors, touched, handleChange, handleBlur }) => (
           <Form className="space-y-6">
@@ -102,7 +106,8 @@ const SignupForm = () => {
             {handleBlur('confirmPassword') &&
               checkErr(values.password, values.confirmPassword)}
             <Input
-              label="What's you email?"
+              label="What's your email?"
+              id="Email"
               type="email"
               placeholder="example@example.com"
               name="email"
@@ -113,6 +118,7 @@ const SignupForm = () => {
             <div className="flex space-x-4 w-full">
               <Input
                 label="First Name"
+                id="FirstName"
                 type="text"
                 placeholder="John"
                 name="firstName"
@@ -122,6 +128,7 @@ const SignupForm = () => {
               />
               <Input
                 label="Last Name"
+                id="LastName"
                 type="text"
                 placeholder="Doe"
                 name="lastName"
@@ -133,6 +140,7 @@ const SignupForm = () => {
             <div className="flex space-x-4 w-full">
               <Input
                 label="Your password"
+                id="Password"
                 type="password"
                 placeholder=""
                 name="password"
@@ -142,6 +150,7 @@ const SignupForm = () => {
               />
               <Input
                 label="Confirm your password"
+                id="ConfirmPassword"
                 type="password"
                 placeholder=""
                 name="confirmPassword"
@@ -157,6 +166,7 @@ const SignupForm = () => {
               </label>
               <input
                 type="file"
+                id="ProfileImage"
                 name="profileImage"
                 placeholder="Profile Image"
                 onChange={onImageChange}
@@ -165,6 +175,7 @@ const SignupForm = () => {
             </div>
             <Button
               title={loading ? 'Creating Account' : 'Create Account'}
+              id="Signup_button"
               varient="primary"
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore

@@ -10,6 +10,7 @@ interface InputProps {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   className?: string;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  id?: string;
 }
 
 const Input = (props: InputProps) => {

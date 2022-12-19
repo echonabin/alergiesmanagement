@@ -35,11 +35,13 @@ export const signUpUser =
         type: SIGNUP_USER,
         payload: res.data,
       });
+      return res.data;
     } catch (err: any) {
       dispatch({
         type: AUTH_ERR,
         payload: err.response.data.errors[0],
       });
+      return err.response.data.errors[0];
     }
   };
 

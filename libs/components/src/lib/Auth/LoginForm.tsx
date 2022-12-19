@@ -63,13 +63,14 @@ const LoginForm = () => {
         {({ values, errors, touched, handleChange, isSubmitting }) => (
           <Form className="space-y-6">
             {errors.email && touched.email && (
-              <Alert type="error" content={errors.email} />
+              <Alert type="error" content={errors.email} id="Invalid_email" />
             )}
             {errors.password && touched.password && (
               <Alert type="error" content={errors.password} />
             )}
             <Input
               label="Your Email"
+              id="Email"
               type="email"
               placeholder=""
               name="email"
@@ -79,6 +80,7 @@ const LoginForm = () => {
             />
             <Input
               label="Your password"
+              id="Password"
               type="password"
               placeholder=""
               name="password"
@@ -88,6 +90,7 @@ const LoginForm = () => {
             />
             <Button
               title={isSubmitting ? 'Logging in' : 'Login'}
+              id="Login_button"
               varient="primary"
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore

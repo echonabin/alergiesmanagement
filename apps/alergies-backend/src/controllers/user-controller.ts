@@ -18,16 +18,19 @@ export const createUserController = async (
   next: NextFunction
 ) => {
   try {
+    const files = req.files ?? [];
     const { error } = AuthValidator.register_user(req.body);
     if (error) {
       throw next(new RequestValidationError(error));
     }
     const finalData = {
-      profileUrl: req.files ? req.files[0].location : null,
+      profileUrl: files.length > 0 ? req.files[0].location : null,
       ...req.body,
     };
     const response = await createUserService(finalData);
-    res.status(201).json({ response });
+    res
+      .status(201)
+      .json({ response, status: 201, message: 'User created successfully!' });
   } catch (error) {
     next(error);
   }

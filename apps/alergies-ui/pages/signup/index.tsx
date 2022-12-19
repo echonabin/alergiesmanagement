@@ -11,7 +11,10 @@ const Signup = () => {
       <Head>
         <title>Practitioner Management | Login</title>
       </Head>
-      <div className="flex flex-col justify-center items-center h-screen">
+      <div
+        className="flex flex-col justify-center items-center h-screen"
+        id="signup_page"
+      >
         {/* Login Modal */}
         <div className="border-[1px] border-gray-300 flex flex-col px-10 py-10 rounded-lg w-1/2 shadow">
           <p className="font-poppins font-medium text-3xl text-center text-gray-700">
@@ -21,6 +24,7 @@ const Signup = () => {
             Already have an account?{' '}
             <span
               className="cursor-pointer underline hover:text-blue-500"
+              id="Go_to_login"
               onClick={() => router.push('/login')}
             >
               Login
@@ -37,6 +41,7 @@ const Signup = () => {
           <div className="mt-4 place-self-center w-full">
             <Button
               varient="secondary"
+              id="Login_page"
               title="Login"
               className="rounded-full w-full"
               onClick={() => router.push('/login')}
