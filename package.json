@@ -52,7 +52,7 @@
     "redux-thunk": "^2.4.2",
     "regenerator-runtime": "0.13.7",
     "supertest": "^6.3.3",
-    "sweetalert2": "^11.6.15",
+    "sweetalert2": "11.4.8",
     "tslib": "^2.3.0"
   },
   "devDependencies": {

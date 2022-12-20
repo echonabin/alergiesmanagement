@@ -7,7 +7,7 @@ import Button from '../../Button/Button';
 import { IconType } from 'react-icons';
 import { routes } from './routes';
 import { useRouter } from 'next/router';
-import { logoutUser } from '@alergiesmanagement/store';
+import { clearAlert, logoutUser } from '@alergiesmanagement/store';
 
 const Sidebar = () => {
   const router = useRouter();
@@ -55,6 +55,7 @@ const Sidebar = () => {
           varient="secondary"
           onClick={() => {
             dispatch(logoutUser());
+            dispatch(clearAlert());
             router.push('/login');
           }}
           className="w-full"
