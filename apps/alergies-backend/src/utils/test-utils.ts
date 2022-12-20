@@ -12,6 +12,14 @@ export const submitData = async (data, url: string, token?: string) => {
   return response;
 };
 
+export const submitWithFile = async (image, url: string, token?: string) => {
+  const response = await request(app)
+    .put(base_url + url)
+    .set('Authorization', `Bearer ${token}`)
+    .attach('image', image);
+  return response;
+};
+
 export const updateData = async (data, url: string, token?: string) => {
   const response = await request(app)
     .put(base_url + url)
