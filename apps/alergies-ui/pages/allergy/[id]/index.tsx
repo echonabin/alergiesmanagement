@@ -66,7 +66,7 @@ const SingleAllergy = () => {
       <Head>
         <title>{name} - Allergy</title>
       </Head>
-      {loading || !allergy_image ? (
+      {loading ? (
         <Loading />
       ) : (
         <div id="single_allergy_page">
@@ -85,7 +85,11 @@ const SingleAllergy = () => {
                 {/* profile */}
                 <div className="col-span-2 flex flex-col justify-center space-y-2 place-self-center mt-10">
                   <Image
-                    src={allergy_image}
+                    src={
+                      allergy_image
+                        ? allergy_image
+                        : 'https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80'
+                    }
                     width={400}
                     height={400}
                     className="pr-3"

@@ -31,13 +31,10 @@ describe('List Allergy Page', () => {
 
   it('should go to single allergy page and render it', () => {
     getLayouts().get('#ListAllergies_1').click();
-    createAllergy().then((res) => {
-      const id = res.body.response[0].id;
-      getListAllergyPage().get(`#table_data_${id}`).click();
-      getSingleAllergyPage()
-        .get('#allergy_title')
-        .should('have.class', 'text-3xl font-semibold');
-    });
+    getListAllergyPage().get(`#table_data_1`).click();
+    getSingleAllergyPage()
+      .get('#allergy_title')
+      .should('have.class', 'text-3xl font-semibold');
   });
 
   it('should go to edit page and render it', () => {

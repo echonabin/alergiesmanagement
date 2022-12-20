@@ -7,9 +7,8 @@ import { Oval } from 'react-loader-spinner';
 import {
   getSingleAllergyAction,
   updateAllergyAction,
-  clearAlert,
 } from '@alergiesmanagement/store';
-import { cleanUp, createAlert } from '@alergiesmanagement/utils';
+import { createAlert } from '@alergiesmanagement/utils';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 
@@ -61,8 +60,7 @@ const UpdateAllergyForm = () => {
     }
   }, [id]);
 
-  const { allergy_image, notes, severity, symptoms, treatments } =
-    singleAllergy;
+  const { notes, severity, symptoms, treatments } = singleAllergy;
 
   const onSubmitHandler = async (values: IUpdateAllergy) => {
     const _id = toast.loading('Updating Allergy...');
