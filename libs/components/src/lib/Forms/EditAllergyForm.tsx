@@ -7,9 +7,8 @@ import { Oval } from 'react-loader-spinner';
 import {
   getSingleAllergyAction,
   updateAllergyAction,
-  clearAlert,
 } from '@alergiesmanagement/store';
-import { cleanUp, createAlert } from '@alergiesmanagement/utils';
+import { createAlert } from '@alergiesmanagement/utils';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 
@@ -61,8 +60,7 @@ const UpdateAllergyForm = () => {
     }
   }, [id]);
 
-  const { allergy_image, notes, severity, symptoms, treatments } =
-    singleAllergy;
+  const { notes, severity, symptoms, treatments } = singleAllergy;
 
   const onSubmitHandler = async (values: IUpdateAllergy) => {
     const _id = toast.loading('Updating Allergy...');
@@ -92,10 +90,11 @@ const UpdateAllergyForm = () => {
             onSubmit={(values) => onSubmitHandler(values)}
           >
             {({ values, handleChange }) => (
-              <Form className="space-y-6">
+              <Form className="space-y-6" id="Edit_allergy_form">
                 <div className="flex space-x-4 w-full">
                   <Input
                     label="Severity"
+                    id="Severity"
                     type="text"
                     placeholder="Normal"
                     name="severity"
@@ -105,6 +104,7 @@ const UpdateAllergyForm = () => {
                   />
                   <Input
                     label="symptoms"
+                    id="Symptoms"
                     type="text"
                     placeholder="Feaver,Cold"
                     name="symptoms"
@@ -116,6 +116,7 @@ const UpdateAllergyForm = () => {
                 <Input
                   label="Treatments"
                   type="text"
+                  id="Treatments"
                   placeholder="Use antibiotic"
                   name="treatments"
                   value={values.treatments}
@@ -126,6 +127,7 @@ const UpdateAllergyForm = () => {
                   <Input
                     label="Notes"
                     type="text"
+                    id="Notes"
                     placeholder="Something as a note"
                     name="notes"
                     value={values.notes}
@@ -135,6 +137,7 @@ const UpdateAllergyForm = () => {
                 </div>
                 <Button
                   title={loading ? 'Updating Allergy' : 'Update Allergy'}
+                  id="Update_button"
                   varient="primary"
                   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                   // @ts-ignore

@@ -43,7 +43,7 @@ privateAgent.interceptors.response.use(
       error?.response?.data?.errors[0].message === 'jwt expired'
     ) {
       return axios
-        .get(`${baseUrl}/auth/refresh?token=${refreshToken}`)
+        .get(`${baseUrl}/auth/refresh-token?token=${refreshToken}`)
         .then((res: any) => {
           if (res.status === 200) {
             const tokenData: RefreshTokenResponse = res.data;

@@ -1,7 +1,7 @@
 import { useTable } from 'react-table';
 import PractitionerRows from './Rows/AllergiesRow';
 
-const Table = ({ columns, data }: any) => {
+const Table = ({ columns, data, id }: any) => {
   // Use the state and functions returned from useTable to build your UI
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
@@ -11,7 +11,7 @@ const Table = ({ columns, data }: any) => {
 
   // Render the UI for your table
   return (
-    <table {...getTableProps()} className="w-full">
+    <table {...getTableProps()} className="w-full" id={id}>
       <thead className="">
         {headerGroups.map((headerGroup, id) => (
           <tr {...headerGroup.getHeaderGroupProps()} key={id}>
@@ -33,6 +33,7 @@ const Table = ({ columns, data }: any) => {
           return (
             <tr
               {...row.getRowProps()}
+              id={`table_data_${i}`}
               className="hover:bg-gray-100 cursor-pointer"
               key={i}
             >

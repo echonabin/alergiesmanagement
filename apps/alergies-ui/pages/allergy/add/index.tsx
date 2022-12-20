@@ -9,7 +9,10 @@ const AddPractitioner = () => {
       <Head>
         <title>Allergy Management | Add Allergy</title>
       </Head>
-      <div className="flex flex-col justify-center items-center h-screen">
+      <div
+        className="flex flex-col justify-center items-center h-screen"
+        id="add_allergy_page"
+      >
         {/* Login Modal */}
         <div className="border-[1px] border-gray-300 flex flex-col px-10 py-10 rounded-lg w-1/2 shadow">
           <p className="font-poppins font-medium text-3xl text-center text-gray-700">

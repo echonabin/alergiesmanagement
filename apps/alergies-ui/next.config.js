@@ -13,7 +13,11 @@ const nextConfig = {
     svgr: false,
   },
   images: {
-    domains: ['allergyfiles.s3.ap-south-1.amazonaws.com'],
+    domains: [
+      'allergyfiles.s3.ap-south-1.amazonaws.com',
+      'cdn-icons-png.flaticon.com',
+      'images.unsplash.com',
+    ],
   },
 };
 

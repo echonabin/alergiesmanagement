@@ -71,27 +71,31 @@ const ListPractitioner = () => {
   );
 
   React.useEffect(() => {
-    dispatch(getAllergiesAction({}));
+    dispatch(getAllergiesAction({ limit: 20, page: 0 }));
   }, [message]);
 
   return (
-    <>
+    <div id="list_allergy">
       <Head>
         <title>Allergies List</title>
       </Head>
       <h1 className="text-3xl font-semibold font-poppins text-gray-700">
         Allergies
       </h1>
-      <div className="w-full bg-slate-100">
+      <div className="w-full bg-slate-100" id="render_table">
         {loading ? (
           <div className="flex justify-center items-center h-screen bg-white">
             <Loading />
           </div>
         ) : (
-          <Table data={allergies.items ?? []} columns={columns} />
+          <Table
+            data={allergies.items ?? []}
+            columns={columns}
+            id="Allergy_list_table"
+          />
         )}
       </div>
-    </>
+    </div>
   );
 };
 

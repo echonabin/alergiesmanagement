@@ -1,5 +1,5 @@
 import { getLoginPage, getSignUpPage } from '../support/app.po';
-import { email, password } from '../fixtures/auth.json';
+import { password } from '../fixtures/auth.json';
 
 describe('Login portion and login screen', () => {
   beforeEach(() => cy.visit('/'));
@@ -17,7 +17,7 @@ describe('Login portion and login screen', () => {
       .get('.Toastify__toast')
       .should('have.class', 'Toastify__toast--error');
   });
-
+  const email = `${Math.round(Math.random() * 2000)}@test.com`;
   it('should create user successfully', () => {
     getLoginPage().get('#Signup_button').click();
     cy.url().should('include', '/signup');
