@@ -5,6 +5,7 @@ import {
   getUpdateAllergyPage,
   createAllergy,
   loginUser,
+  getAddAllergyPage,
 } from '../support/app.po';
 
 describe('List Allergy Page', () => {
@@ -70,5 +71,23 @@ describe('List Allergy Page', () => {
       getListAllergyPage().get('.swal2-confirm').click();
       getListAllergyPage().get('.swal2-confirm').click();
     });
+  });
+
+  it('should add an allergy successfully', () => {
+    getLayouts().get('#CreateAllergy_2').click();
+    getAddAllergyPage()
+      .get('#add_allergy_form')
+      .should('have.class', 'space-y-6');
+    getAddAllergyPage()
+      .get('#Name')
+      .type(`Eye Allergy ${Math.round(Math.random() * 1000)}`);
+    getAddAllergyPage().get('#Symptoms').type('Eye ich, Red eye');
+    getAddAllergyPage().get('#Severity').type('Normal');
+    getAddAllergyPage().get('#Treatments').type('Eye Drops');
+    getAddAllergyPage().get('#Notes').type('Some notes here....');
+    getAddAllergyPage().get('#Submit_button').click();
+    getAddAllergyPage()
+      .get('.Toastify__toast')
+      .should('have.class', 'Toastify__toast--success');
   });
 });

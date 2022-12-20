@@ -31,11 +31,16 @@ export const createAllergyController = async (
   if (error) {
     return next(new RequestValidationError(error));
   }
-  const data = {
-    ...req.body,
-    createdBy: req.auth.account.user_id,
-    allergyImage: req.files ? req.files[0].location : '',
-  };
+  const data = req.files
+    ? {
+        ...req.body,
+        createdBy: req.auth.account.user_id,
+        allergyImage: req.files.length > 0 ? req.files[0].location : '',
+      }
+    : {
+        ...req.body,
+        createdBy: req.auth.account.user_id,
+      };
   const response = await createAllergyService(data);
   apiResponse({ response, res, next, statusCode: 201 });
 };

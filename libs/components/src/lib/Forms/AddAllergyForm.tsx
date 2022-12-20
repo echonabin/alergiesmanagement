@@ -50,7 +50,9 @@ const AddAllergyForm = () => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       formData.append(key, values[key]);
-      formData.append('image', image!);
+      if (image !== null) {
+        formData.append('image', image!);
+      }
     }
     const res = await dispatch(createAllergyAction(formData));
     createAlert(id, res);
@@ -58,7 +60,6 @@ const AddAllergyForm = () => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       resetForm();
-      setImage(null);
     }
   }
 
@@ -77,11 +78,12 @@ const AddAllergyForm = () => {
         }
       >
         {({ values, handleChange, isSubmitting }) => (
-          <Form className="space-y-6">
+          <Form className="space-y-6" id="add_allergy_form">
             <div className="flex space-x-4 w-full">
               <Input
                 label="Name"
                 type="text"
+                id="Name"
                 placeholder="Eye Allergies"
                 name="name"
                 value={values.name}
@@ -91,6 +93,7 @@ const AddAllergyForm = () => {
               <Input
                 label="Symptoms"
                 type="text"
+                id="Symptoms"
                 placeholder="Eye Ich, Red Eye"
                 name="symptoms"
                 value={values.symptoms}
@@ -100,6 +103,7 @@ const AddAllergyForm = () => {
             </div>
             <Input
               label="Severity"
+              id="Severity"
               type="text"
               placeholder="Normal"
               name="severity"
@@ -109,6 +113,7 @@ const AddAllergyForm = () => {
             />
             <Input
               label="Treatments"
+              id="Treatments"
               type="text"
               placeholder="Eye Drops"
               name="treatments"
@@ -118,6 +123,7 @@ const AddAllergyForm = () => {
             />
             <Input
               label="Notes"
+              id="Notes"
               type="text"
               placeholder="Add Some notes here.."
               name="notes"
@@ -140,6 +146,7 @@ const AddAllergyForm = () => {
             </div>
             <Button
               title={isSubmitting ? 'Adding Allergy' : 'Add Allergy'}
+              id="Submit_button"
               varient="primary"
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
