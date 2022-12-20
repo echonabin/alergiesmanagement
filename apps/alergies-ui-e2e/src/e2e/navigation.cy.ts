@@ -1,21 +1,12 @@
-import { getLayouts, getLoginPage } from '../support/app.po';
-import { email, password } from '../fixtures/auth.json';
+import { getLayouts, loginUser } from '../support/app.po';
 
 describe('Navigation and routes', () => {
-  beforeEach(() => cy.visit('/'));
-
-  it('should login user', () => {
-    getLoginPage().get('#Email').type(email);
-    getLoginPage().get('#Password').type(password);
-    getLoginPage().get('#Login_button').click();
-    getLoginPage()
-      .get('.Toastify__toast')
-      .should('have.class', 'Toastify__toast--success');
-    cy.url().should('include', '/dashboard');
+  beforeEach(() => {
+    cy.visit('/');
+    loginUser();
   });
 
   it('should go to dashboard page successfully', () => {
-    getLayouts().get('#Dashboard_0').click();
     cy.url().should('include', '/dashboard');
   });
 
