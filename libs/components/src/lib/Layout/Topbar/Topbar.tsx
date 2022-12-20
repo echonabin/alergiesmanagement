@@ -28,7 +28,11 @@ const Topbar = () => {
       <div className="flex items-center space-x-3">
         <FiBell className="text-gray-300 text-3xl transform rotate-[20deg] hover:rotate-0 transition-all ease-linear duration-200 hover:text-blue-500 cursor-pointer" />
         <Image
-          src={userImage ? userImage : ''}
+          src={
+            userImage
+              ? userImage
+              : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
+          }
           width={40}
           height={40}
           alt="profile"

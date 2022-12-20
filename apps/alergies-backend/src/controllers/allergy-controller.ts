@@ -80,9 +80,9 @@ export const updateAllergyController = async (
       ...req.body,
     };
 
-    if (req.files) {
+    if (req.files.length > 0) {
       Object.assign(data, {
-        allergyImage: req.files ? req.files[0].location : '',
+        allergyImage: req.files[0].location,
       });
     }
 

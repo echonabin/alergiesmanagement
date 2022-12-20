@@ -69,10 +69,13 @@ const SingleAllergy = () => {
       {loading || !allergy_image ? (
         <Loading />
       ) : (
-        <div>
+        <div id="single_allergy_page">
           <div className="w-full">
             <div className="grid grid-cols-12 w-full items-center space-x-4">
-              <h1 className="text-3xl font-semibold font-poppins text-gray-700 col-span-3">
+              <h1
+                className="text-3xl font-semibold font-poppins text-gray-700 col-span-3"
+                id="allergy_title"
+              >
                 Allergy Detail
               </h1>
               <div className="h-[1px] bg-gray-200 w-full col-span-9" />

@@ -23,15 +23,6 @@ const AllergyRows = (props: AllergyProps) => {
     }
   };
 
-  // const handleToggle = async (current: boolean | string, id: string) => {
-  //   const resp = await privateAgent.put(`/practitioner/${id}`, {
-  //     isIcu: !current,
-  //   });
-  //   if (resp.status === 200) {
-  //     setRefresh(true);
-  //   }
-  // };
-
   React.useEffect(() => {
     if (open) {
       DeleteModal({
@@ -47,9 +38,13 @@ const AllergyRows = (props: AllergyProps) => {
       return (
         <div className="flex">
           <img
-            src={cell.value}
+            src={
+              cell.value
+                ? cell.value
+                : 'https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80'
+            }
             alt="profile"
-            className="w-10 h-10 rounded-full"
+            className="w-10 h-10 rounded-full object-cover"
           />
         </div>
       );
@@ -57,39 +52,12 @@ const AllergyRows = (props: AllergyProps) => {
     return;
   };
 
-  // const renderToggle = (cell: Cell) => {
-  //   // @ts-ignore
-  //   const value = cell.row.original.isIcu;
-  //   return (
-  //     <td className="flex items-center space-x-2 -ml-10">
-  //       {value ? (
-  //         <FiToggleLeft
-  //           className="text-green-500 text-2xl hover:scale-110 transition-all ease-linear duration-200"
-  //           onClick={() => {
-  //             setRefresh(true);
-  //             // @ts-ignore
-  //             handleToggle(value, cell.row.original._id);
-  //           }}
-  //         />
-  //       ) : (
-  //         <FiToggleRight
-  //           className="text-red-500 text-2xl hover:scale-110 transition-all ease-linear duration-200"
-  //           onClick={() => {
-  //             setRefresh(true);
-  //             // @ts-ignore
-  //             handleToggle(value, cell.row.original._id);
-  //           }}
-  //         />
-  //       )}
-  //     </td>
-  //   );
-  // };
-
-  const renderAction = (cell: Cell) => {
+  const renderAction = (cell: any) => {
     return (
       <div className="flex">
         <div>
           <FiEdit
+            id={`Edit_${cell.row.original.id}`}
             className="text-blue-500 text-xl cursor-pointer hover:scale-105 transition-all ease-linear duration-200"
             onClick={() =>
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -100,6 +68,7 @@ const AllergyRows = (props: AllergyProps) => {
         </div>
         <div>
           <FiTrash
+            id={`Delete_${cell.row.original.id}`}
             className="text-red-500 text-xl cursor-pointer hover:scale-105 transition-all ease-linear duration-200"
             onClick={() => {
               setOpen(true);

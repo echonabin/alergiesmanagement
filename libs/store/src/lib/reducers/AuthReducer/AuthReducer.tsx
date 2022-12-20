@@ -27,6 +27,7 @@ export default (
       };
     case LOGIN_USER:
       setCookie('accessToken', payload.response.jwtToken);
+      localStorage.setItem('accessToken', payload.response.jwtToken);
       setCookie('refreshToken', payload.response.refreshToken.token);
       setCookie('userProfile', JSON.stringify(payload.response));
       return {
