@@ -36,6 +36,8 @@ docker exec -it `container_name/id` psql -U postgres
 CREATE DATABASE allergiestest
 ```
 
+## How to run unit test on backend
+
 ## How to start a project
 
 > Note that this is dependent upon the database service above so make sure to run it first
@@ -73,6 +75,8 @@ node main.js
 ```
 
 ## UI portion (Frontend)
+
+> Note that this UI depends with backend api endpoints so make sure it is running first.
 
 Frontend project is created using react framework called [Next.Js](https://nextjs.org). For the styling it use [TailwindCss](https://tailwindcss.com).
 To understand more about project folder structures please scroll down to folder structure sections.
@@ -119,15 +123,25 @@ How to run the test
 
 - Backend unit testing
 
-```
+Once you are sure that test database up and running you could use cli to start test
+
+```bash
 yarn test:backend
 ```
 
-- Frontend e2e test
+above command will run unit test with jest and save it's coverage report on > `coverage` directory
 
-```
+- Frontend E2E testing
+
+> Note E2E test depends upon up and running backend server so make sure to run it first
+
+After backend server is running you could simply do
+
+```bash
 yarn e2e:ui
 ```
+
+above command will run e2e on ui portionn and display it's result.
 
 ## Project Folder Structure
 
