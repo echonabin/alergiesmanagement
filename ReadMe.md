@@ -38,7 +38,21 @@ CREATE DATABASE allergiestest
 
 ## How to start a project
 
-> Note that this is dependent upon the database service above so make sure to run it first
+> Note that this is dependent upon the database service above so make sure to run it first and have env variable on you project
+
+## Adding Env before running backend
+
+You need to add env to backend project with name `.env.local` in order to run the project successfully so get .env variables and include it in your > `/apps/alergies-backend/.env.local`
+
+```env
+NX_AWS_ACCESS_KEY_ID="AWS_ACCESS_KEY"
+NX_AWS_SECRET_ACCESS_KEY="AWS_SECRET_KEY"
+NX_AWS_BUCKET_NAME="S3 BUCKET_NAME"
+NX_AWS_REGION="AWS_REGION"
+NX_PORT="BACKEND_PORT"
+NX_JWT_SECRET= "JWT_SECRET"
+NX_JWT_EXPIRATION_TIME="EXPIRATION_TIME_OF_JWT"
+```
 
 Here's a quick way to start Backend
 
