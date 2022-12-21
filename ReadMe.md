@@ -36,8 +36,6 @@ docker exec -it `container_name/id` psql -U postgres
 CREATE DATABASE allergiestest
 ```
 
-## How to run unit test on backend
-
 ## How to start a project
 
 > Note that this is dependent upon the database service above so make sure to run it first
