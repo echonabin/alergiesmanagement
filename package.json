@@ -10,7 +10,6 @@
     "ui:lint": "nx run alergies-ui:lint",
     "backend:lint": "nx run alergies-backend:lint",
     "e2e:ui": "nx run alergies-ui-e2e:e2e",
-    "e2e:ui:coverage": "mv apps/alergies-ui/_babel.js babel.js && nx run alergies-ui-e2e:e2e",
     "test:backend": "cross-env NODE_ENV=test nx test --runInBand --coverage",
     "migrate:make": "knex migrate:make --migrations-directory apps/alergies-backend/src/db/migrations -x ts",
     "migrate:latest": "knex migrate:latest --knexfile apps/alergies-backend/src/db/knexfile.ts",
