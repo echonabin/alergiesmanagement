@@ -3,6 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/alergies-ui",
   "projectType": "application",
+  "webpackConfig": "@nrwl/next/babel",
   "targets": {
     "build": {
       "executor": "@nrwl/next:build",
