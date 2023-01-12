@@ -65,12 +65,18 @@ yarn
 ```
 
 For Development Version
+```
+yarn migrate:latest
+```
 
 ```
 yarn start:backend
 ```
 
 For Built/Production Version
+```
+yarn migrate:latest
+```
 
 ```
 yarn build:backend
