@@ -5,7 +5,6 @@ const port = process.env.NX_PORT || 3333;
 checkDbConnection()
   .then((res) => {
     if (res.code !== 'ECONNREFUSED') {
-      console.log(res);
       const server = app.listen(port, () => {
         console.log(`⚡️Server listening at http://localhost:${port}/api`);
       });
@@ -16,5 +15,5 @@ checkDbConnection()
     }
   })
   .catch((error) => {
-    console.log(error);
+    console.error(error);
   });

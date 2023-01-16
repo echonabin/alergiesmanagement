@@ -45,7 +45,7 @@ export const errorHandler = async (
   }
 
   // await insertIntoDb();
-  console.log(err);
+  console.error(err);
   res.status(400).send({
     errors: [{ message: 'Something went wrong on the server!!' }],
   });

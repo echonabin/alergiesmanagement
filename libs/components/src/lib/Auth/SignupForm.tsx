@@ -43,7 +43,6 @@ const SignupForm = () => {
   const onImageChange = (event: any) => {
     if (event.target.files && event.target.files[0]) {
       setImage(event.target.files[0]);
-      console.log(event.target.files[0]);
     }
   };
 

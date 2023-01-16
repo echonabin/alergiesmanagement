@@ -39,7 +39,6 @@ const ListPractitioner = () => {
   const { allergies, error, loading, message } = useSelector(
     (state: RootState) => state.AllergyReducer
   );
-  console.log(allergies);
 
   const columns = React.useMemo(
     () => [

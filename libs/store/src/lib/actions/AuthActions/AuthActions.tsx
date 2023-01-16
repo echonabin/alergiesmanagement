@@ -72,7 +72,7 @@ export const logoutUser = () => async (dispatch: Dispatch) => {
       type: LOGOUT_USER,
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     dispatch({
       type: AUTH_ERR,
       payload: 'Error',
