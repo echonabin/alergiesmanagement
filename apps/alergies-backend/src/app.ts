@@ -1,8 +1,9 @@
 import * as express from 'express';
 import * as cors from 'cors';
 import * as path from 'path';
-import { API_ENDPOINTS } from '@alergiesmanagement/constants';
+
 // Startup imports
+import { API_ENDPOINTS } from '@alergiesmanagement/constants';
 import startupRoutes from './startup/startup-routes';
 
 const app = express();

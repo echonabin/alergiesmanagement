@@ -1,8 +1,9 @@
 import React from 'react';
+import Head from 'next/head';
 import { useSelector, useDispatch } from 'react-redux';
+
 import { Loading, Table } from '@alergiesmanagement/components';
 import { getAllergiesAction } from '@alergiesmanagement/store';
-import Head from 'next/head';
 import { withAuth } from '@alergiesmanagement/utils';
 
 type SingleAllergy = {

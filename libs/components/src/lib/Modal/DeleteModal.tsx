@@ -7,12 +7,7 @@ interface DeleteInterface {
   refreshHandler?: (arg: boolean) => void;
 }
 
-const DeleteModal = ({
-  title,
-  text,
-  confirmHandler,
-  refreshHandler,
-}: DeleteInterface) => {
+const DeleteModal = ({ title, text, confirmHandler }: DeleteInterface) => {
   Swal.fire({
     title: title ? title : 'Are you sure?',
     text: text ? text : "You won't be able to revert this!",

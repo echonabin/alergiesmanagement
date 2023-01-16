@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+
 import { Button, SignupForm } from '@alergiesmanagement/components';
 import { withAuth } from '@alergiesmanagement/utils';
 

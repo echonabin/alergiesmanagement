@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+
 import { UpdateAllergyForm } from '@alergiesmanagement/components';
 import { withAuth } from '@alergiesmanagement/utils';
 

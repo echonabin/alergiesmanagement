@@ -1,7 +1,8 @@
 import React from 'react';
+import { FiDelete, FiEdit, FiUserCheck, FiUserMinus } from 'react-icons/fi';
+
 import { withAuth } from '@alergiesmanagement/utils';
 import { Card, Chart } from '@alergiesmanagement/components';
-import { FiDelete, FiEdit, FiUserCheck, FiUserMinus } from 'react-icons/fi';
 
 const Dashboard = () => {
   return (

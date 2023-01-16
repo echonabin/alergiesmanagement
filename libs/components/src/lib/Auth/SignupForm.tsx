@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useState } from 'react';
 import { Formik, Form } from 'formik';
-import { Button, Alert } from '..';
 import { Oval } from 'react-loader-spinner';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
+
 import Input from '../Input/Input';
-import { cleanUp, createAlert } from '@alergiesmanagement/utils';
-import { clearAlert, signUpUser } from '@alergiesmanagement/store';
-import router from 'next/router';
+import { Button, Alert } from '..';
+import { createAlert } from '@alergiesmanagement/utils';
+import { signUpUser } from '@alergiesmanagement/store';
 
 interface RootState {
   AuthReducer: {
@@ -48,9 +48,7 @@ const SignupForm = () => {
   };
 
   const dispatch = useDispatch() as any;
-  const { error, message, loading } = useSelector(
-    (state: RootState) => state.AuthReducer
-  );
+  const { loading } = useSelector((state: RootState) => state.AuthReducer);
   async function onSubmitHandler<T>(values: IRegisterUser, resetForm: T) {
     const id = toast.loading('Adding User...');
     const formData = new FormData();

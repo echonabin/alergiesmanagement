@@ -1,7 +1,8 @@
+import * as path from 'path';
+
 import { submitWithFile, updateData } from '../../utils/test-utils';
 import { API_ENDPOINTS } from '@alergiesmanagement/constants';
 import { createAllergy } from './create.allergy.test';
-import * as path from 'path';
 
 const { allergies, base_url } = API_ENDPOINTS;
 const { update } = allergies;

@@ -1,6 +1,6 @@
+import db from '../db/db';
 import { NextFunction, Request, Response } from 'express';
 import { CustomError } from '../errors/custom-error';
-import db from '../db/db';
 import { IDefaultTimeStamp } from '../types/global-types';
 
 interface IError extends IDefaultTimeStamp {

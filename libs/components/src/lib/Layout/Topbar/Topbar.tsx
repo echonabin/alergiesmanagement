@@ -1,7 +1,7 @@
-import { FiBell, FiSearch } from 'react-icons/fi';
-import { getCookie } from 'cookies-next';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { FiBell, FiSearch } from 'react-icons/fi';
+import { getCookie } from 'cookies-next';
 
 const Topbar = () => {
   const userProfile = getCookie('userProfile') as string;

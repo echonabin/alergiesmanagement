@@ -1,11 +1,19 @@
 import { email, password } from '../fixtures/auth.json';
+
 export const getLoginPage = () => cy.get('#login_page');
+
 export const getSignUpPage = () => cy.get('#signup_page');
+
 export const getLayouts = () => cy.get('#layout_page');
+
 export const getListAllergyPage = () => cy.get('#list_allergy');
+
 export const getSingleAllergyPage = () => cy.get('#single_allergy_page');
+
 export const getUpdateAllergyPage = () => cy.get('#update_allergy_page');
+
 export const getAddAllergyPage = () => cy.get('#add_allergy_page');
+
 export const createAllergy = () =>
   cy.request({
     method: 'POST',

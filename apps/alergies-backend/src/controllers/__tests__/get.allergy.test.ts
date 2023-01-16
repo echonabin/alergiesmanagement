@@ -1,6 +1,7 @@
 import { retriveData } from '../../utils/test-utils';
 import { API_ENDPOINTS } from '@alergiesmanagement/constants';
 import { createAllergy } from './create.allergy.test';
+
 const { allergies, base_url } = API_ENDPOINTS;
 const { get, getOne } = allergies;
 

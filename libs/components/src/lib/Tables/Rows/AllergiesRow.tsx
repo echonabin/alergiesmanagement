@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import * as React from 'react';
-import { FiEdit, FiTrash, FiToggleLeft, FiToggleRight } from 'react-icons/fi';
-import { Cell } from 'react-table';
 import router from 'next/router';
+import { Cell } from 'react-table';
+import { useDispatch } from 'react-redux';
+import { FiEdit, FiTrash } from 'react-icons/fi';
+
 import DeleteModal from '../../Modal/DeleteModal';
 import { deleteAllergyAction } from '@alergiesmanagement/store';
-import { useDispatch } from 'react-redux';
 
 interface AllergyProps {
   cell: any;
@@ -84,23 +85,19 @@ const AllergyRows = (props: AllergyProps) => {
 
   return (
     <>
-      {cell.map((c, i) => {
+      {cell.map((c: any) => {
         return (
           <>
             <td
               {...c.getCellProps()}
               className="text-left border-b-[1px] py-3 text-gray-700 font-poppins"
-              key={i}
+              key={c.row.original.id}
             >
               {c.column.Header === 'Image' ? (
                 renderProfile(c)
               ) : c.column.Header !== 'Action' ? (
                 <div
-                  onClick={() =>
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-ignore
-                    router.push(`/allergy/${c.row.original.id}`)
-                  }
+                  onClick={() => router.push(`/allergy/${c.row.original.id}`)}
                 >
                   {c.render('Cell')}
                 </div>
