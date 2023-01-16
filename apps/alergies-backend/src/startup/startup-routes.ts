@@ -1,8 +1,8 @@
 import * as express from 'express';
 import { Express } from 'express';
+
 import { API_ENDPOINTS } from '@alergiesmanagement/constants';
 import { errorHandler } from '../middlewares/error-handler';
-// Routes import
 import { userRouter } from '../routes/user-routes';
 import { allergyRouter } from '../routes/allergy-routes';
 

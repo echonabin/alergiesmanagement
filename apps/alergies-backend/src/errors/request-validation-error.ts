@@ -1,4 +1,5 @@
 import { ValidationError } from 'joi';
+
 import { CustomError } from './custom-error';
 
 // extending a regular Error class

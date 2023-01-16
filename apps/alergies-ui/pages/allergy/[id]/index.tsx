@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
+import Head from 'next/head';
 import Image from 'next/image';
 import moment from 'moment';
-import Head from 'next/head';
+
 import { withAuth } from '@alergiesmanagement/utils';
 import { getSingleAllergyAction } from '@alergiesmanagement/store';
 import { useDispatch, useSelector } from 'react-redux';

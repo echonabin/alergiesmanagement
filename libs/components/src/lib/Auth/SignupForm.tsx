@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useState } from 'react';
 import { Formik, Form } from 'formik';
-import { Button, Alert } from '..';
 import { Oval } from 'react-loader-spinner';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
+
 import Input from '../Input/Input';
-import { cleanUp, createAlert } from '@alergiesmanagement/utils';
-import { clearAlert, signUpUser } from '@alergiesmanagement/store';
-import router from 'next/router';
+import { Button, Alert } from '..';
+import { createAlert } from '@alergiesmanagement/utils';
+import { signUpUser } from '@alergiesmanagement/store';
 
 interface RootState {
   AuthReducer: {

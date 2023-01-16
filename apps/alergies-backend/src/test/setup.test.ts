@@ -1,7 +1,8 @@
+import db from '../db';
 import { submitData } from '../utils/test-utils';
 import { API_ENDPOINTS } from '@alergiesmanagement/constants';
+
 const { auth } = API_ENDPOINTS;
-import db from '../db';
 
 declare global {
   interface Global {

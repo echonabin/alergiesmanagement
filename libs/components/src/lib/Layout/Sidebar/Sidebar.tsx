@@ -1,12 +1,12 @@
 import Image from 'next/image';
 import { useDispatch } from 'react-redux';
+import { IconType } from 'react-icons';
+import { useRouter } from 'next/router';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import logo from 'public/assets/logo-image.png';
 import Button from '../../Button/Button';
-import { IconType } from 'react-icons';
 import { routes } from './routes';
-import { useRouter } from 'next/router';
 import { clearAlert, logoutUser } from '@alergiesmanagement/store';
 
 const Sidebar = () => {

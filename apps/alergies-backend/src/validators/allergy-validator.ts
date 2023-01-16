@@ -1,4 +1,5 @@
 import * as Joi from 'joi';
+
 import { AllergyProps } from '../types/allergy-types';
 
 export const AllergyValidator = {

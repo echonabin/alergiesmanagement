@@ -1,3 +1,5 @@
+import { setCookie, deleteCookie } from 'cookies-next';
+
 import {
   LOGIN_USER,
   LOGOUT_USER,
@@ -6,7 +8,6 @@ import {
   SET_LOADING,
   SIGNUP_USER,
 } from '../../types';
-import { setCookie, deleteCookie } from 'cookies-next';
 
 const initialState = {
   message: '',

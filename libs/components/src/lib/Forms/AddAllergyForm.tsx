@@ -1,10 +1,11 @@
-import Input from '../Input/Input';
 import { useEffect, useState } from 'react';
 import { Formik, Form } from 'formik';
-import { Button } from '..';
 import { Oval } from 'react-loader-spinner';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+
+import Input from '../Input/Input';
+import { Button } from '..';
 import { createAllergyAction, clearAlert } from '@alergiesmanagement/store';
 import { createAlert } from '@alergiesmanagement/utils';
 

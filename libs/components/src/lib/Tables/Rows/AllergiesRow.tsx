@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import * as React from 'react';
-import { FiEdit, FiTrash, FiToggleLeft, FiToggleRight } from 'react-icons/fi';
-import { Cell } from 'react-table';
 import router from 'next/router';
+import { Cell } from 'react-table';
+import { useDispatch } from 'react-redux';
+import { FiEdit, FiTrash } from 'react-icons/fi';
+
 import DeleteModal from '../../Modal/DeleteModal';
 import { deleteAllergyAction } from '@alergiesmanagement/store';
-import { useDispatch } from 'react-redux';
 
 interface AllergyProps {
   cell: any;

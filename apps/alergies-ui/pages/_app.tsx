@@ -1,13 +1,14 @@
+import React from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React from 'react';
-import './styles.css';
-import 'react-toastify/dist/ReactToastify.css';
 import { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
+
 import { wrapper } from '@alergiesmanagement/store';
 import { Layout } from '@alergiesmanagement/components';
+import 'react-toastify/dist/ReactToastify.css';
+import './styles.css';
 
 function CustomApp({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);

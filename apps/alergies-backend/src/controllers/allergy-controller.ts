@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+
 import { RequestValidationError } from '../errors/request-validation-error';
 import {
   createAllergyService,

@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { withAuth } from '@alergiesmanagement/utils';
+
 const Index = () => {
   return (
     <div>

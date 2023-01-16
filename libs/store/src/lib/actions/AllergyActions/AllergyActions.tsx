@@ -1,4 +1,5 @@
 import { Dispatch } from 'redux';
+
 import {
   createAllergy,
   deleteAllergy,
@@ -6,7 +7,6 @@ import {
   getAllergies,
   getSingleAllergy,
 } from '@alergiesmanagement/utils';
-
 import {
   UPDATE_ALLERGY,
   GET_ALLERGIES,

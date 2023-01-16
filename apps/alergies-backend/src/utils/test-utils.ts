@@ -1,4 +1,5 @@
 import * as request from 'supertest';
+
 import { app } from '../app';
 import { API_ENDPOINTS } from '@alergiesmanagement/constants';
 

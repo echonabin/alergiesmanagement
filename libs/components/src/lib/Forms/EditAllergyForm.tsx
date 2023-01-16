@@ -1,16 +1,17 @@
 import { useEffect } from 'react';
 import { Formik, Form } from 'formik';
-import { Button, Loading } from '..';
-import Input from '../Input/Input';
 import { useDispatch, useSelector } from 'react-redux';
 import { Oval } from 'react-loader-spinner';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
+
+import { Button, Loading } from '..';
+import Input from '../Input/Input';
 import {
   getSingleAllergyAction,
   updateAllergyAction,
 } from '@alergiesmanagement/store';
 import { createAlert } from '@alergiesmanagement/utils';
-import { toast } from 'react-toastify';
-import { useRouter } from 'next/router';
 
 type SingleAllergy = {
   id: number;

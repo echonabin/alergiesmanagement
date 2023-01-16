@@ -1,5 +1,6 @@
 import { submitData } from '../../utils/test-utils';
 import { API_ENDPOINTS } from '@alergiesmanagement/constants';
+
 const { allergies, base_url } = API_ENDPOINTS;
 const { create } = allergies;
 
