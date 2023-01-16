@@ -48,9 +48,7 @@ const SignupForm = () => {
   };
 
   const dispatch = useDispatch() as any;
-  const { error, message, loading } = useSelector(
-    (state: RootState) => state.AuthReducer
-  );
+  const { loading } = useSelector((state: RootState) => state.AuthReducer);
   async function onSubmitHandler<T>(values: IRegisterUser, resetForm: T) {
     const id = toast.loading('Adding User...');
     const formData = new FormData();

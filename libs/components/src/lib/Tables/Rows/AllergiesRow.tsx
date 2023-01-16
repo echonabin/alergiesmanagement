@@ -85,23 +85,19 @@ const AllergyRows = (props: AllergyProps) => {
 
   return (
     <>
-      {cell.map((c, i) => {
+      {cell.map((c: any) => {
         return (
           <>
             <td
               {...c.getCellProps()}
               className="text-left border-b-[1px] py-3 text-gray-700 font-poppins"
-              key={i}
+              key={c.row.original.id}
             >
               {c.column.Header === 'Image' ? (
                 renderProfile(c)
               ) : c.column.Header !== 'Action' ? (
                 <div
-                  onClick={() =>
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-ignore
-                    router.push(`/allergy/${c.row.original.id}`)
-                  }
+                  onClick={() => router.push(`/allergy/${c.row.original.id}`)}
                 >
                   {c.render('Cell')}
                 </div>
