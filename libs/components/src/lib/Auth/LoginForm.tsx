@@ -8,7 +8,7 @@ import { Oval } from 'react-loader-spinner';
 import { Button, Alert } from '..';
 import Input from '../Input/Input';
 import { clearAlert, loginUser } from '@alergiesmanagement/store';
-import { createAlert } from '@alergiesmanagement/utils';
+import { createAlert, validateFormData } from '@alergiesmanagement/utils';
 
 interface RootState {
   AuthReducer: {
@@ -48,17 +48,7 @@ const LoginForm = () => {
     <div>
       <Formik
         initialValues={{ email: '', password: '' }}
-        validate={(values) => {
-          const errors = {} as any;
-          if (!values.email) {
-            errors.email = 'Required';
-          } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          ) {
-            errors.email = 'Invalid email address';
-          }
-          return errors;
-        }}
+        validate={(values) => validateFormData<typeof values>(values)}
         onSubmit={async (values) => onSubmitHandler(values)}
       >
         {({ values, errors, touched, handleChange, isSubmitting }) => (
