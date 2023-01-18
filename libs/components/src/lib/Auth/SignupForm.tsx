@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Input from '../Input/Input';
 import { Button, Alert } from '..';
-import { createAlert } from '@alergiesmanagement/utils';
+import { createAlert, validateFormData } from '@alergiesmanagement/utils';
 import { signUpUser } from '@alergiesmanagement/store';
 
 interface RootState {
@@ -43,7 +43,6 @@ const SignupForm = () => {
   const onImageChange = (event: any) => {
     if (event.target.files && event.target.files[0]) {
       setImage(event.target.files[0]);
-      console.log(event.target.files[0]);
     }
   };
 
@@ -78,17 +77,7 @@ const SignupForm = () => {
           firstName: '',
           lastName: '',
         }}
-        validate={(values) => {
-          const errors = {} as { email: string };
-          if (!values.email) {
-            errors.email = 'Required';
-          } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          ) {
-            errors.email = 'Invalid email address';
-          }
-          return errors;
-        }}
+        validate={(values) => validateFormData<typeof values>(values)}
         onSubmit={async (values, { resetForm }) =>
           onSubmitHandler(values, resetForm)
         }

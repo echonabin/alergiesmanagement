@@ -49,7 +49,6 @@ const SingleAllergy = () => {
     };
     fetchData();
   }, [id]);
-  console.log(singleAllergy);
 
   const {
     allergy_image,
