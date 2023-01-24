@@ -1,5 +1,10 @@
 # Guide on how to start a project
 
+### Version Requirement
+
+`Node version 14.21 > `
+`Npm version 6 > `
+
 > Note this project is setup using monorepo architecture (NX) workflow
 
 This repo contains both backend and UI portion of a project itself so, this readMe will guide user on how to get started.
@@ -65,6 +70,7 @@ yarn
 ```
 
 For Development Version
+
 ```
 yarn migrate:latest
 ```
@@ -74,6 +80,7 @@ yarn start:backend
 ```
 
 For Built/Production Version
+
 ```
 yarn migrate:latest
 ```
