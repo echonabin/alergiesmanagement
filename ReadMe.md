@@ -2,8 +2,8 @@
 
 ### Version Requirement
 
-`Node version 14.21 > `
-`Npm version 6 > `
+`Node version 14.21^ `
+`Npm version 6^ `
 
 > Note this project is setup using monorepo architecture (NX) workflow
 
